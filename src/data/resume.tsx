@@ -71,6 +71,7 @@ export const DATA = {
   navbar: [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
+    { href: "/blog", label: "Blog" },
   ],
 
   contact: {

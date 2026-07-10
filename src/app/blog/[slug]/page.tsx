@@ -1,107 +1,183 @@
-import { getBlogPosts, getPost } from "@/data/blog";
-import { DATA } from "@/data/resume";
-import { formatDate } from "@/lib/utils";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { Suspense } from "react";
+import Link from "next/link";
+import { BLOGS } from "@/data/blogs";
+import { Badge } from "@/components/ui/badge";
+import Markdown from "react-markdown";
+import Image from "next/image";
+import BlurFade from "@/components/magicui/blur-fade";
+
+const BLUR_FADE_DELAY = 0.04;
 
 export async function generateStaticParams() {
-  const posts = await getBlogPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return BLOGS.map((blog) => ({
+    slug: blog.slug,
+  }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: {
-    slug: string;
-  };
-}): Promise<Metadata | undefined> {
-  let post = await getPost(params.slug);
-
-  let {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-  } = post.metadata;
-  let ogImage = image ? `${DATA.url}${image}` : `${DATA.url}/og?title=${title}`;
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const blog = BLOGS.find((b) => b.slug === params.slug);
 
   return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: "article",
-      publishedTime,
-      url: `${DATA.url}/blog/${post.slug}`,
-      images: [
-        {
-          url: ogImage,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [ogImage],
-    },
+    title: blog?.title,
+    description: blog?.excerpt,
   };
 }
 
-export default async function Blog({
-  params,
-}: {
-  params: {
-    slug: string;
-  };
-}) {
-  let post = await getPost(params.slug);
+export default function BlogDetailPage({ params }: { params: { slug: string } }) {
+  const blog = BLOGS.find((b) => b.slug === params.slug);
 
-  if (!post) {
-    notFound();
+  if (!blog) {
+    return <div>Blog not found</div>;
   }
 
+  const relatedBlogs = BLOGS.filter(
+    (b) => b.category === blog.category && b.id !== blog.id
+  ).slice(0, 2);
+
   return (
-    <section id="blog">
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post.metadata.title,
-            datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.publishedAt,
-            description: post.metadata.summary,
-            image: post.metadata.image
-              ? `${DATA.url}${post.metadata.image}`
-              : `${DATA.url}/og?title=${post.metadata.title}`,
-            url: `${DATA.url}/blog/${post.slug}`,
-            author: {
-              "@type": "Person",
-              name: DATA.name,
-            },
-          }),
-        }}
-      />
-      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
-        {post.metadata.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        <Suspense fallback={<p className="h-5" />}>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            {formatDate(post.metadata.publishedAt)}
-          </p>
-        </Suspense>
-      </div>
-      <article
-        className="prose dark:prose-invert"
-        dangerouslySetInnerHTML={{ __html: post.source }}
-      ></article>
-    </section>
+    <main className="flex flex-col min-h-[100dvh] space-y-8">
+      <BlurFade delay={BLUR_FADE_DELAY}>
+        <Link
+          href="/blog"
+          className="text-primary hover:underline text-sm font-medium w-fit"
+        >
+          ← Back to Articles
+        </Link>
+      </BlurFade>
+
+      <section className="space-y-6 max-w-3xl">
+        <BlurFade delay={BLUR_FADE_DELAY * 2}>
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 flex-wrap">
+              <Badge variant="default">{blog.category}</Badge>
+              <span className="text-sm text-muted-foreground">
+                {blog.readTime} min read
+              </span>
+              <span className="text-sm text-muted-foreground">•</span>
+              <time className="text-sm text-muted-foreground">
+                {new Date(blog.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
+              {blog.title}
+            </h1>
+
+            {blog.projectName && (
+              <div className="flex items-center gap-2 text-sm">
+                <div className="w-8 h-8 relative rounded-full overflow-hidden">
+                  <Image
+                    src={blog.image}
+                    alt={blog.projectName}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <span className="text-primary font-medium">
+                  From {blog.projectName}
+                </span>
+              </div>
+            )}
+          </div>
+        </BlurFade>
+
+        <BlurFade delay={BLUR_FADE_DELAY * 3}>
+          <div className="relative w-full h-96 rounded-lg overflow-hidden">
+            <Image
+              src={blog.image}
+              alt={blog.title}
+              fill
+              className="object-cover"
+            />
+          </div>
+        </BlurFade>
+      </section>
+
+      <section className="max-w-3xl">
+        <BlurFade delay={BLUR_FADE_DELAY * 4}>
+          <article className="prose dark:prose-invert max-w-none">
+            <Markdown>
+              {blog.content}
+            </Markdown>
+          </article>
+        </BlurFade>
+      </section>
+
+      <section className="max-w-3xl space-y-6 pt-8 border-t">
+        <BlurFade delay={BLUR_FADE_DELAY * 5}>
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-sm font-semibold mb-3">Tags</h3>
+              <div className="flex gap-2 flex-wrap">
+                {blog.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary">
+                    #{tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            {blog.projectName && (
+              <div>
+                <h3 className="text-sm font-semibold mb-3">Featured Project</h3>
+                <Link
+                  href={`/projects/${blog.projectId}`}
+                  className="flex items-center gap-3 p-4 rounded-lg border hover:border-primary transition-colors"
+                >
+                  <div className="w-12 h-12 relative rounded-md overflow-hidden flex-shrink-0">
+                    <Image
+                      src={blog.image}
+                      alt={blog.projectName}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">{blog.projectName}</h4>
+                    <p className="text-sm text-muted-foreground">
+                      View project details →
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            )}
+          </div>
+        </BlurFade>
+      </section>
+
+      {relatedBlogs.length > 0 && (
+        <section className="max-w-3xl space-y-6 pt-8">
+          <BlurFade delay={BLUR_FADE_DELAY * 6}>
+            <div>
+              <h2 className="text-2xl font-bold mb-6">Related Articles</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {relatedBlogs.map((relatedBlog) => (
+                  <Link
+                    key={relatedBlog.id}
+                    href={`/blog/${relatedBlog.slug}`}
+                    className="group"
+                  >
+                    <article className="space-y-2 p-4 rounded-lg border hover:border-primary transition-colors h-full">
+                      <p className="text-xs text-muted-foreground">
+                        {relatedBlog.category}
+                      </p>
+                      <h3 className="font-semibold group-hover:text-primary transition-colors line-clamp-2">
+                        {relatedBlog.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-1">
+                        {relatedBlog.excerpt}
+                      </p>
+                    </article>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </BlurFade>
+        </section>
+      )}
+    </main>
   );
 }
