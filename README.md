@@ -2,7 +2,7 @@
 
 > Production-ready portfolio showcasing real-world MERN stack projects and technical expertise
 
-**Portfolio URL:** [rishabh-portfolio-2.vercel.app](https://rishabh-portfolio-2.vercel.app)
+**Portfolio URL:** [rishabh-portfolio1-ten.vercel.app](https://rishabh-portfolio1-ten.vercel.app)
 
 **Resume:** [Google Drive](https://drive.google.com/file/d/1FAoUklRT1ESkVprO1Ux6IlQnUJnLRlyv/view?usp=sharing)
 
@@ -305,7 +305,7 @@ npm start
 
 ## 🔗 Links
 
-- **Portfolio:** [rishabh-portfolio-2.vercel.app](https://rishabh-portfolio-2.vercel.app)
+- **Portfolio:** [rishabh-portfolio1-ten.vercel.app](https://rishabh-portfolio1-ten.vercel.app)
 - **GitHub:** [github.com/rishabh-tiwari](https://github.com/rishabh-tiwari)
 - **LinkedIn:** [linkedin.com/in/rishabh-tiwari](https://www.linkedin.com/in/rishabh-tiwari)
 - **Twitter:** [@Rishabh__73](https://x.com/Rishabh__73)

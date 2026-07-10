@@ -3,7 +3,7 @@ export const DATA = {
 
   name: "Rishabh Tiwari",
   initials: "RT",
-  url: "https://rishabh-portfolio-2.vercel.app",
+  url: "https://rishabh-portfolio1-ten.vercel.app",
   location: "Delhi, India",
   locationLink: "https://www.google.com/maps/place/Delhi",
   description:

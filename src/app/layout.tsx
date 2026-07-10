@@ -13,7 +13,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rishabh-portfolio-2.vercel.app"),
+  metadataBase: new URL("https://rishabh-portfolio1-ten.vercel.app"),
   title: {
     default: DATA.name,
     template: `%s | ${DATA.name}`,
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${DATA.name}`,
     description: DATA.description,
-    url: "https://rishabh-portfolio-2.vercel.app",
+    url: "https://rishabh-portfolio1-ten.vercel.app",
     siteName: `${DATA.name}`,
     locale: "en_US",
     type: "website",
