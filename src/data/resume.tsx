@@ -9,7 +9,7 @@ export const DATA = {
   description:
     "Full Stack Developer specializing in scalable SaaS platforms and real-time systems. Expert in MERN stack, PostgreSQL, Docker, CI/CD, and test-driven development. Delivered 9 production applications serving 300+ users with high-reliability architecture.",
   summary:
-    "Full Stack Developer with expertise in building scalable SaaS platforms and production-ready web applications. Strong technical foundation in MERN stack with growing proficiency in PostgreSQL, Docker, and CI/CD pipelines. Delivered 9 live applications serving 300+ users, processing 100+ transactions reliably. Core competencies: Next.js, React.js, Node.js, Express.js, MongoDB, PostgreSQL, JWT authentication, role-based access control, Stripe/Postmark integrations, and test-driven development. Passionate about clean architecture, performance optimization, and shipping high-quality features in agile environments.",
+    "Full Stack Developer with 2+ years of experience building scalable SaaS platforms and production-ready web applications. Strong technical foundation in MERN stack with growing proficiency in PostgreSQL, Docker, and CI/CD pipelines. Delivered 9 live applications serving 300+ users, processing 100+ transactions reliably. Core competencies: Next.js, React.js, Node.js, Express.js, MongoDB, PostgreSQL, JWT authentication, role-based access control, Stripe/Postmark integrations, and test-driven development. Passionate about clean architecture, performance optimization, and shipping high-quality features in agile environments.",
 
   avatarUrl: "/me.jpeg",
   resumeLink: "https://drive.google.com/file/d/1FAoUklRT1ESkVprO1Ux6IlQnUJnLRlyv/view?usp=sharing",
@@ -133,37 +133,10 @@ export const DATA = {
 
   projects: [
     {
-      title: "Clee — Full-Stack SaaS Platform for Beauty & Wellness Businesses",
-      href: "https://app.clee.co/",
-      dates: "Aug 2024 - Present (6 months)",
-      active: true,
-      shortDescription:
-        "Multi-tenant SaaS platform for beauty/wellness businesses. Technical challenge: managing concurrent booking updates across 4+ role types with real-time state sync. Solution: Redis-backed slot locking + Redux optimistic updates. Processing 100+ monthly transactions with 99.8% reliability.",
-      description:
-        "Architected 3-tier SaaS platform from scratch: admin dashboard, customer marketplace, + REST API backend. Key technical decisions: Multi-tenant architecture using tenant ID isolation in MongoDB queries; Redis distributed locks for concurrent booking slot management (prevents overbooking); Redux state management with async thunks for real-time cart/booking synchronization. Built dynamic loyalty rewards engine with React formula builder UI allowing merchants to create fixed/percentage discounts with live preview. Implemented Postmark email infrastructure with templated transactional emails + marketing automation flows. Payment flow: Stripe payment intent + confirmation, Redux state management, Express async handlers for idempotent transactions. Database optimization: compound indexes on (tenantId, businessId, dateRange) for slot queries, reducing query time from 850ms → 120ms. Shipped 15+ business modules: real-time slot availability, staff scheduling (timesheets/leave), gift vouchers, promo codes, analytics dashboards. Reliably processing 100+ monthly transactions with 0 double-charges.",
-      technologies: [
-        "Next.js (App Router)",
-        "React.js",
-        "Redux Toolkit",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "Redis (Distributed locks)",
-        "Stripe API",
-        "Postmark",
-        "Tailwind CSS",
-        "JWT",
-        "Mongoose",
-      ],
-      links: [],
-      image: "/images/Clee.png",
-      video: "",
-    },
-    {
       title: "Grocery Pickup Store",
       href: "https://www.bachhoahouston.com/",
-      dates: "Oct 2024 - Present (5 months)",
-      active: true,
+      dates: "Sep 2024 - Oct 2024",
+      active: false,
       shortDescription:
         "E-commerce platform processing live customer orders. Challenge: inventory consistency across cart/checkout (prevent overselling). Solution: Optimistic updates + server validation + Redis stock cache. Achieved 99.2% transaction success rate.",
       description:
@@ -188,8 +161,8 @@ export const DATA = {
     {
       title: "Forma Construction",
       href: "https://forma-web-seven.vercel.app/",
-      dates: "Nov 2024 - Present (4 months)",
-      active: true,
+      dates: "Nov 2024 - Dec 2024",
+      active: false,
       shortDescription:
         "B2B construction platform serving 200+ users across 50+ active projects. Challenge: hierarchical RBAC (Admin > Organization Manager > Project Lead > Member) with document-level permissions. Reduced list API response time from 2.1s → 280ms via aggregation pipeline.",
       description:
@@ -214,8 +187,8 @@ export const DATA = {
     {
       title: "My Lodge",
       href: "https://www.mylodge.cloud/",
-      dates: "Sep 2024 - Present (6 months)",
-      active: true,
+      dates: "Dec 2024 - Jan 2025",
+      active: false,
       shortDescription:
         "Rental marketplace with dual-user experience (guests/hosts). Challenge: real-time booking availability across distributed system. Solution: Calendar bitmap algorithm + MongoDB TTL indexes for efficient date range queries. Supporting 50+ properties with 99.5% uptime.",
       description:
@@ -238,8 +211,8 @@ export const DATA = {
     {
       title: "Hariir - Job Portal",
       href: "https://hariir-web.vercel.app/",
-      dates: "2024",
-      active: true,
+      dates: "Jan 2025 - Feb 2025",
+      active: false,
       shortDescription:
         "Professional social platform connecting job seekers, companies, and recruiters. Features profile management, job listings, company profiles, and networking capabilities. Built with role-based access control for seamless job discovery and hiring workflows with secure authentication.",
       description:
@@ -260,8 +233,8 @@ export const DATA = {
     {
       title: "Double Bay Website",
       href: "https://double-bay-website.vercel.app/",
-      dates: "2024",
-      active: true,
+      dates: "Feb 2025 - Mar 2025",
+      active: false,
       shortDescription:
         "E-commerce platform for beauty products and salon services with integrated Stripe payments. Implemented JWT authentication, role-based access control, and real-time service booking system for seamless customer experience.",
       description:
@@ -283,8 +256,8 @@ export const DATA = {
     {
       title: "Canada Halal Website",
       href: "https://caneda-halal-register.vercel.app/",
-      dates: "2024",
-      active: true,
+      dates: "Mar 2025 - Apr 2025",
+      active: false,
       shortDescription:
         "Specialized halal product registration and management platform for Canadian market. Built with secure user authentication and role-based access for vendors, certifiers, and consumers.",
       description:
@@ -305,8 +278,8 @@ export const DATA = {
     {
       title: "Alagare - Bus Booking Landing Page",
       href: "https://alagare-landingpage.vercel.app/",
-      dates: "2024",
-      active: true,
+      dates: "Apr 2025 - May 2025",
+      active: false,
       shortDescription:
         "Professional landing page for bus booking service with integrated reservation system. Features responsive design, service showcase, and direct booking integration.",
       description:
@@ -324,8 +297,8 @@ export const DATA = {
     {
       title: "Bok A Korning - Booking Platform Landing",
       href: "https://www.bokakorning.online/",
-      dates: "2024",
-      active: true,
+      dates: "May 2025 - Jun 2025",
+      active: false,
       shortDescription:
         "Professional booking platform landing page with service discovery and instant reservation capabilities. Optimized for user engagement and conversion with modern design.",
       description:
@@ -338,6 +311,55 @@ export const DATA = {
       ],
       links: [],
       image: "/images/boakkorning.png",
+      video: "",
+    },
+    {
+      title: "Clee — Full-Stack SaaS Platform for Beauty & Wellness Businesses",
+      href: "https://app.clee.co/",
+      dates: "Jun 2025 - Present",
+      active: true,
+      shortDescription:
+        "Multi-tenant SaaS platform for beauty/wellness businesses. Technical challenge: managing concurrent booking updates across 4+ role types with real-time state sync. Solution: Redis-backed slot locking + Redux optimistic updates. Processing 100+ monthly transactions with 99.8% reliability.",
+      description:
+        "Architected 3-tier SaaS platform from scratch: admin dashboard, customer marketplace, + REST API backend. Key technical decisions: Multi-tenant architecture using tenant ID isolation in MongoDB queries; Redis distributed locks for concurrent booking slot management (prevents overbooking); Redux state management with async thunks for real-time cart/booking synchronization. Built dynamic loyalty rewards engine with React formula builder UI allowing merchants to create fixed/percentage discounts with live preview. Implemented Postmark email infrastructure with templated transactional emails + marketing automation flows. Payment flow: Stripe payment intent + confirmation, Redux state management, Express async handlers for idempotent transactions. Database optimization: compound indexes on (tenantId, businessId, dateRange) for slot queries, reducing query time from 850ms → 120ms. Shipped 15+ business modules: real-time slot availability, staff scheduling (timesheets/leave), gift vouchers, promo codes, analytics dashboards. Reliably processing 100+ monthly transactions with 0 double-charges.",
+      technologies: [
+        "Next.js (App Router)",
+        "React.js",
+        "Redux Toolkit",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Redis (Distributed locks)",
+        "Stripe API",
+        "Postmark",
+        "Tailwind CSS",
+        "JWT",
+        "Mongoose",
+      ],
+      links: [],
+      image: "/images/Clee.png",
+      video: "",
+    },
+    {
+      title: "Tobaline — Sustainable Luxury Fashion E-Commerce",
+      href: "https://www.tobaline.com/",
+      dates: "Jul 2025 - Present",
+      active: true,
+      shortDescription:
+        "Multi-language (AR/EN) e-commerce platform for a sustainable silk & textile brand. Statically-exported Next.js storefront with collection browsing, cart, and order history, built for a Middle-East-facing audience with full RTL-ready localization.",
+      description:
+        "Built a statically-exported Next.js storefront for Tobaline, a sustainable luxury textile brand centered on ethically-sourced, chemical-free certified silk. Implemented a responsive, mobile-first shop with category-driven collection navigation (Shop/Collection mega-menus), cart and account icons in the header, and dedicated informational routes (About, Sustainability, FAQ, Shipping, Returns & Exchanges, Terms). Added AR/EN language switching in the header to serve a bilingual Middle-East audience, keeping copy and layout localization-ready. Optimized all product and hero imagery with next/image responsive srcSets for fast first paint on mobile. Structured the site as a static export (SSG) for cheap, fast hosting while keeping order-history and account routes (My Order, History) ready to wire into a backend API. Styled entirely with Tailwind CSS utility classes and Lucide icons for a clean, editorial, luxury-brand aesthetic.",
+      technologies: [
+        "Next.js (Static Export)",
+        "React.js",
+        "Tailwind CSS",
+        "Lucide Icons",
+        "i18n (AR/EN)",
+        "Responsive Design",
+        "next/image Optimization",
+      ],
+      links: [],
+      image: "/images/tobaline.png",
       video: "",
     },
 

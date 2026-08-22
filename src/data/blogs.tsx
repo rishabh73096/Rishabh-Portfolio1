@@ -13,13 +13,13 @@ export interface Blog {
   tags: string[];
 }
 
-export const BLOGS: Blog[] = [
+const RAW_BLOGS: Blog[] = [
   {
     id: "1",
     title: "Multi-Tenant SaaS with MongoDB: Data Isolation & Performance",
     slug: "multi-tenant-mongodb-saas",
     excerpt: "Building Clee SaaS platform with MongoDB - tenant isolation, indexing strategies, and real-world lessons learned.",
-    date: "2024-12-15",
+    date: "2025-06-10",
     readTime: 7,
     category: "Backend",
     projectName: "Clee",
@@ -73,7 +73,7 @@ app.get('/api/bookings', (req, res) => {
     title: "Distributed Locks with Redis: Preventing Overbooking",
     slug: "redis-locks-booking",
     excerpt: "Prevent concurrent booking conflicts using Redis locks in Node.js - Clee's battle-tested solution.",
-    date: "2024-12-10",
+    date: "2025-06-20",
     readTime: 6,
     category: "Backend",
     projectName: "Clee",
@@ -133,7 +133,7 @@ async function bookSlot(slotId) {
     title: "Building a Loyalty Rewards Engine with React & Node.js",
     slug: "loyalty-rewards-engine",
     excerpt: "Clee's flexible rewards system: React formula builder + Node.js calculations.",
-    date: "2024-12-05",
+    date: "2025-06-30",
     readTime: 6,
     category: "Frontend",
     projectName: "Clee",
@@ -187,7 +187,7 @@ app.post('/bookings/:id/complete', async (req, res) => {
     title: "MongoDB Aggregation Pipelines: N+1 Queries Solved",
     slug: "mongodb-aggregation-pipelines",
     excerpt: "Transform slow N+1 queries into single aggregation pipelines - 87% faster queries.",
-    date: "2024-11-28",
+    date: "2024-11-05",
     readTime: 7,
     category: "Database",
     projectName: "Forma Construction",
@@ -248,7 +248,7 @@ db.documents.createIndex({ projectId: 1 });
     title: "Stripe Payments in Node.js: Integration to Webhooks",
     slug: "stripe-payments-nodejs",
     excerpt: "Complete Stripe integration in Express - payment intents, webhooks, idempotency.",
-    date: "2024-11-20",
+    date: "2024-09-20",
     readTime: 8,
     category: "Backend",
     projectName: "Grocery Pickup Store",
@@ -385,7 +385,7 @@ app.get('/projects', async (req, res) => {
     title: "Real-Time Features with Socket.io in Node.js",
     slug: "socket-io-realtime",
     excerpt: "Add real-time updates to your MERN app with Socket.io - live notifications, presence.",
-    date: "2024-11-08",
+    date: "2025-01-05",
     readTime: 7,
     category: "Backend",
     projectName: "My Lodge",
@@ -458,7 +458,7 @@ function useSocket() {
     title: "JWT Authentication in MERN: Tokens & Refresh Strategy",
     slug: "jwt-auth-mern",
     excerpt: "Secure authentication in MERN stack - access tokens, refresh tokens, httpOnly cookies.",
-    date: "2024-11-01",
+    date: "2024-11-25",
     readTime: 8,
     category: "Security",
     projectName: "Forma Construction",
@@ -544,7 +544,7 @@ app.post('/refresh-token', (req, res) => {
     title: "MongoDB Indexing: Speed Up Queries 10x",
     slug: "mongodb-indexing-performance",
     excerpt: "Strategic indexing in MongoDB - compound indexes, when to index, performance impact.",
-    date: "2024-10-25",
+    date: "2024-12-05",
     readTime: 6,
     category: "Database",
     projectName: "Forma Construction",
@@ -601,7 +601,7 @@ db.bookings.find({ tenantId: ObjectId('...') }).explain('executionStats');
     title: "Error Handling in Express: Centralized Middleware",
     slug: "express-error-handling",
     excerpt: "Centralized error handling in Express.js - consistent responses, logging.",
-    date: "2024-10-18",
+    date: "2024-12-15",
     readTime: 5,
     category: "Backend",
     projectName: "Forma Construction",
@@ -676,7 +676,7 @@ app.post('/projects', async (req, res, next) => {
     title: "Testing Node.js APIs: Jest & Supertest",
     slug: "nodejs-api-testing",
     excerpt: "Jest + Supertest for testing Express APIs - unit tests, integration tests.",
-    date: "2024-10-10",
+    date: "2024-12-25",
     readTime: 7,
     category: "Testing",
     projectName: "Forma Construction",
@@ -755,7 +755,7 @@ npm test -- --watch       # Watch mode
     title: "Responsive Design in React: Mobile-First with Tailwind",
     slug: "responsive-react-tailwind",
     excerpt: "Mobile-first responsive design in React - Tailwind breakpoints, touch-friendly.",
-    date: "2024-09-28",
+    date: "2024-10-10",
     readTime: 6,
     category: "Frontend",
     projectName: "Grocery Pickup Store",
@@ -814,3 +814,7 @@ xl: 1280px  (large)
 `
   }
 ];
+
+export const BLOGS: Blog[] = [...RAW_BLOGS].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+);
