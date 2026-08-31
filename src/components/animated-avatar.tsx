@@ -41,7 +41,7 @@ export function AnimatedAvatar({
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-2xl -z-10" />
       <Avatar className={`${sizeClasses[size]} border-3 border-primary shadow-2xl ring-2 ring-background`}>
-        <AvatarImage alt={alt} src={src} />
+        <AvatarImage alt={alt} src={src} className="object-cover object-top" />
         <AvatarFallback>{fallback}</AvatarFallback>
       </Avatar>
     </motion.div>
