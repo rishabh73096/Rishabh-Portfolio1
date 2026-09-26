@@ -4,7 +4,7 @@
 
 **Portfolio URL:** [rishabh-portfolio1-ten.vercel.app](https://rishabh-portfolio1-ten.vercel.app)
 
-**Resume:** [Google Drive](https://drive.google.com/file/d/1FAoUklRT1ESkVprO1Ux6IlQnUJnLRlyv/view?usp=sharing)
+**Resume:** [Google Drive](https://drive.google.com/file/d/1hFz-PKViLS-nFVTR4PdOKxk6xgCIaPcK/view?usp=sharing)
 
 ---
 

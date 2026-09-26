@@ -12,7 +12,7 @@ export const DATA = {
     "Full Stack Developer with 2+ years of experience building scalable SaaS platforms and production-ready web applications. Strong technical foundation in MERN stack with growing proficiency in PostgreSQL, Docker, and CI/CD pipelines. Delivered 9 live applications serving 300+ users, processing 100+ transactions reliably. Core competencies: Next.js, React.js, Node.js, Express.js, MongoDB, PostgreSQL, JWT authentication, role-based access control, Stripe/Postmark integrations, and test-driven development. Passionate about clean architecture, performance optimization, and shipping high-quality features in agile environments.",
 
   avatarUrl: "/me.jpeg",
-  resumeLink: "https://drive.google.com/file/d/1FAoUklRT1ESkVprO1Ux6IlQnUJnLRlyv/view?usp=sharing",
+  resumeLink: "https://drive.google.com/file/d/1hFz-PKViLS-nFVTR4PdOKxk6xgCIaPcK/view?usp=sharing",
 
   skills: [
     // Frontend
