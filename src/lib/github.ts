@@ -5,33 +5,49 @@ export interface ContributionDay {
 }
 
 export interface ContributionData {
-  total: number;
-  days: ContributionDay[];
+  /** Years with data, most recent first. */
+  years: string[];
+  /** Total contributions per year, e.g. { "2026": 191 }. */
+  totals: Record<string, number>;
+  /** Each year's days, sorted chronologically ascending (Jan 1 -> Dec 31). */
+  daysByYear: Record<string, ContributionDay[]>;
 }
 
 /**
- * Fetches the last-year GitHub contribution calendar for a username via the
- * public jogruber/github-contributions-api (no token required). Returns
- * null on any failure so callers can degrade gracefully instead of
- * breaking the build.
+ * Fetches the full multi-year GitHub contribution calendar for a username via
+ * the public jogruber/github-contributions-api (no token required). Returns
+ * null on any failure so callers can degrade gracefully instead of breaking
+ * the build.
  */
 export async function getGithubContributions(
   username: string
 ): Promise<ContributionData | null> {
   try {
     const res = await fetch(
-      `https://github-contributions-api.jogruber.de/v4/${username}?y=last`,
+      `https://github-contributions-api.jogruber.de/v4/${username}?y=all`,
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) return null;
 
     const data = await res.json();
-    if (!Array.isArray(data?.contributions)) return null;
+    const totals: Record<string, number> = data?.total ?? {};
+    const allDays: ContributionDay[] = Array.isArray(data?.contributions)
+      ? data.contributions
+      : [];
+    if (allDays.length === 0) return null;
 
-    return {
-      total: data?.total?.lastYear ?? 0,
-      days: data.contributions,
-    };
+    const daysByYear: Record<string, ContributionDay[]> = {};
+    for (const day of allDays) {
+      const year = day.date.slice(0, 4);
+      (daysByYear[year] ??= []).push(day);
+    }
+    for (const year of Object.keys(daysByYear)) {
+      daysByYear[year].sort((a, b) => a.date.localeCompare(b.date));
+    }
+
+    const years = Object.keys(totals).sort((a, b) => Number(b) - Number(a));
+
+    return { years, totals, daysByYear };
   } catch {
     return null;
   }
