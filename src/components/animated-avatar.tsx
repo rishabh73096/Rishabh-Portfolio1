@@ -39,10 +39,15 @@ export function AnimatedAvatar({
       whileTap={{ scale: 0.95 }}
       className="cursor-pointer relative"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-2xl -z-10" />
-      <Avatar className={`${sizeClasses[size]} border-3 border-primary shadow-2xl ring-2 ring-background`}>
-        <AvatarImage alt={alt} src={src} className="object-cover object-top" />
-        <AvatarFallback>{fallback}</AvatarFallback>
+      <Avatar
+        className={`${sizeClasses[size]} rounded-xl border border-dashed border-border`}
+      >
+        <AvatarImage
+          alt={alt}
+          src={src}
+          className="rounded-xl object-cover object-top"
+        />
+        <AvatarFallback className="rounded-xl">{fallback}</AvatarFallback>
       </Avatar>
     </motion.div>
   );

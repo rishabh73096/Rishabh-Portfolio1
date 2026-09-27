@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCard } from "@/components/project-card";
+import { DashedBox } from "@/components/ui/dashed-box";
 import { DATA } from "@/data/resume";
 import { Search, X } from "lucide-react";
 import Link from "next/link";
@@ -37,7 +38,7 @@ export default function ProjectsPage() {
       <BlurFade delay={BLUR_FADE_DELAY}>
         <Link
           href="/"
-          className="text-primary hover:underline text-sm font-medium w-fit"
+          className="font-mono text-sm font-medium text-muted-foreground hover:text-foreground w-fit transition-colors"
         >
           ← Back to Home
         </Link>
@@ -94,7 +95,7 @@ export default function ProjectsPage() {
       {/* Projects Grid */}
       <section id="projects-grid" className="space-y-6">
         {filteredProjects.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="flex flex-col gap-4">
             {filteredProjects.map((project, id) => (
               <BlurFade
                 key={project.title}
@@ -130,9 +131,9 @@ export default function ProjectsPage() {
       </section>
 
       {/* Stats Section */}
-      <section id="projects-stats" className="pt-12 border-t">
+      <section id="projects-stats" className="pt-4">
         <BlurFade delay={BLUR_FADE_DELAY * 5}>
-          <div className="grid grid-cols-3 gap-4 md:gap-8">
+          <DashedBox className="grid grid-cols-3 gap-4 md:gap-8">
             <div className="text-center space-y-2">
               <div className="text-3xl font-bold text-primary">
                 {DATA.projects.length}+
@@ -151,12 +152,12 @@ export default function ProjectsPage() {
                 Transactions Processed
               </p>
             </div>
-          </div>
+          </DashedBox>
         </BlurFade>
       </section>
 
       {/* CTA Section */}
-      <section id="projects-cta" className="pt-12 text-center space-y-4">
+      <section id="projects-cta" className="pt-4 text-center space-y-4">
         <BlurFade delay={BLUR_FADE_DELAY * 6}>
           <h2 className="text-2xl font-bold">Ready to start your project?</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -167,7 +168,7 @@ export default function ProjectsPage() {
             href="https://x.com/Rishabh__73"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-6 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium hover:scale-105 duration-200"
+            className="inline-block px-6 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
           >
             Message Me on Twitter
           </a>

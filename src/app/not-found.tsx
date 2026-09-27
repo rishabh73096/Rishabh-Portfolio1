@@ -19,13 +19,13 @@ export default function NotFound() {
         <div className="flex gap-4 justify-center pt-8 animate-fade-in">
           <Link
             href="/"
-            className="px-6 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
+            className="px-6 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
           >
             Go Home
           </Link>
           <Link
             href="/projects"
-            className="px-6 py-2 rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors font-medium"
+            className="px-6 py-2 rounded-md border border-border hover:bg-accent transition-colors font-medium"
           >
             View Projects
           </Link>
