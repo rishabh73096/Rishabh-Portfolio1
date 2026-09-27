@@ -15,6 +15,7 @@ import { DATA } from "@/data/resume";
 import { BLOGS } from "@/data/blogs";
 import { SERVICES } from "@/data/services";
 import { FAQ } from "@/data/faq";
+import { TestimonialsSection } from "@/components/testimonials-section";
 import { MapPinIcon, DownloadIcon } from "lucide-react";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -236,12 +237,16 @@ export default function Page() {
                 key={service.title}
                 delay={BLUR_FADE_DELAY * 9.9 + id * 0.03}
               >
-                <DashedBox className="h-full">
-                  <h3 className="font-semibold">{service.title}</h3>
-                  <p className="mt-1.5 text-sm text-muted-foreground">
-                    {service.description}
-                  </p>
-                </DashedBox>
+                <Link href={`/services/${service.slug}`}>
+                  <DashedBox className="h-full transition-colors hover:border-foreground/40">
+                    <h3 className="font-semibold hover:text-primary transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm text-muted-foreground">
+                      {service.description}
+                    </p>
+                  </DashedBox>
+                </Link>
               </BlurFade>
             ))}
           </div>
@@ -286,6 +291,7 @@ export default function Page() {
           </div>
         </div>
       </section>
+      <TestimonialsSection />
       <section id="blog">
         <div className="flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 12}>
