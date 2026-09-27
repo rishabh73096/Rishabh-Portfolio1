@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     creator: "@Rishabh__73",
   },
   verification: {
-    google: "",
+    google: "Rmz8wtgyC2LPy8m4wjL9nBt0Wry8kqBMM0VRMDFRUMc",
     yandex: "",
   },
 };
