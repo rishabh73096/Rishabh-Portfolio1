@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 import { ArrowUpRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,10 +37,7 @@ export function ProjectCard({
   links,
   className,
 }: Props) {
-  const slug = title
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-");
+  const slug = slugify(title);
 
   return (
     <Card

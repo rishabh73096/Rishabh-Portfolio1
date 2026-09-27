@@ -10,8 +10,19 @@ import Image from "next/image";
 const BLUR_FADE_DELAY = 0.04;
 
 export const metadata = {
-  title: "Blog - Technical Articles",
-  description: "Deep dives into full-stack development, architecture, and production lessons learned.",
+  title: "Blog — Technical Articles",
+  description:
+    "Deep dives into full-stack development, architecture, and production lessons learned from real MERN/Next.js projects.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Technical Articles — Rishabh Tiwari, Full Stack Developer",
+    description:
+      "Deep dives into full-stack development, architecture, and production lessons learned from real MERN/Next.js projects.",
+    url: "/blog",
+    type: "website",
+  },
 };
 
 export default function BlogPage() {

@@ -5,6 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/** Shared with sitemap.ts and the project links/pages - keep this the single source of truth. */
+export function slugify(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "") // strip punctuation but keep existing hyphens/spaces
+    .trim()
+    .replace(/[\s-]+/g, "-") // collapse any run of spaces/hyphens into one dash
+    .replace(/^-+|-+$/g, ""); // trim leading/trailing dashes
+}
+
 export function formatDate(date: string) {
   let currentDate = new Date().getTime();
   if (!date.includes("T")) {

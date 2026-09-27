@@ -2,9 +2,10 @@ import Navbar from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { SiteStructuredData } from "@/components/structured-data";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter as FontSans, JetBrains_Mono as FontMono } from "next/font/google";
 import "./globals.css";
 
@@ -18,18 +19,38 @@ const fontMono = FontMono({
   variable: "--font-mono",
 });
 
+const SEO_TITLE = `${DATA.name} | Full Stack Developer (React, Next.js, Node.js)`;
+const SEO_DESCRIPTION = `Full Stack Developer based in ${DATA.location} building React, Next.js, Node.js and MongoDB web apps, REST APIs and SaaS platforms. Available for freelance, contract and remote work.`;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rishabh-portfolio1-ten.vercel.app"),
+  metadataBase: new URL(DATA.url),
   title: {
-    default: DATA.name,
+    default: SEO_TITLE,
     template: `%s | ${DATA.name}`,
   },
-  description: DATA.description,
+  description: SEO_DESCRIPTION,
+  keywords: [
+    "Full Stack Developer",
+    "Full Stack Developer India",
+    "React Developer",
+    "Next.js Developer",
+    "Node.js Developer",
+    "MERN Stack Developer",
+    "Freelance Web Developer India",
+    "Hire Full Stack Developer",
+  ],
+  authors: [{ name: DATA.name, url: DATA.url }],
+  creator: DATA.name,
+  publisher: DATA.name,
+  category: "technology",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: `${DATA.name}`,
-    description: DATA.description,
-    url: "https://rishabh-portfolio1-ten.vercel.app",
-    siteName: `${DATA.name}`,
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
+    url: DATA.url,
+    siteName: DATA.name,
     locale: "en_US",
     type: "website",
   },
@@ -45,13 +66,24 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: `${DATA.name}`,
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
     card: "summary_large_image",
+    creator: "@Rishabh__73",
   },
   verification: {
     google: "",
     yandex: "",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default function RootLayout({
@@ -68,6 +100,7 @@ export default function RootLayout({
           fontMono.variable
         )}
       >
+        <SiteStructuredData />
         <ThemeProvider attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
             <div className="mx-auto w-full max-w-3xl px-6 py-8 sm:py-12">

@@ -1,32 +1,98 @@
-"use client";
-
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
-import { DashedBox } from "@/components/ui/dashed-box";
 import { SectionLabel } from "@/components/ui/section-label";
 import { DATA } from "@/data/resume";
+import { slugify } from "@/lib/utils";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import Image from "next/image";
 
 const BLUR_FADE_DELAY = 0.04;
 
+type Project = (typeof DATA.projects)[number];
+
+function findProject(slug: string): Project | undefined {
+  return DATA.projects.find((p) => slugify(p.title) === slug);
+}
+
+export function generateStaticParams() {
+  return DATA.projects.map((p) => ({ slug: slugify(p.title) }));
+}
+
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Metadata {
+  const project = findProject(params.slug);
+  if (!project) return {};
+
+  const title = project.title;
+  // Widen away the `as const` literal types first — otherwise TS treats the
+  // always-truthy literal `shortDescription` as narrowing `project` itself
+  // to `never` in the `||` fallback branch.
+  const shortDescription: string = project.shortDescription;
+  const fullDescription: string = project.description;
+  const description = shortDescription || fullDescription;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/projects/${params.slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `/projects/${params.slug}`,
+      type: "article",
+      images: project.image ? [{ url: project.image }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: project.image ? [project.image] : undefined,
+    },
+  };
+}
+
 export default function ProjectDetailPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const project = DATA.projects.find(
-    (p) => p.title.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-") === params.slug
-  );
+  const project = findProject(params.slug);
 
   if (!project) {
     notFound();
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    url: project.href || undefined,
+    dateCreated: project.dates,
+    author: {
+      "@type": "Person",
+      name: DATA.name,
+      url: DATA.url,
+    },
+    keywords: project.technologies.join(", "),
+    image: project.image ? `${DATA.url}${project.image}` : undefined,
+  };
+
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Back Button */}
       <BlurFade delay={BLUR_FADE_DELAY}>
         <Link
@@ -60,9 +126,10 @@ export default function ProjectDetailPage({
           <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-dashed border-border">
             <Image
               src={project.image}
-              alt={project.title}
+              alt={`${project.title} — screenshot`}
               fill
               className="object-cover"
+              priority
             />
           </div>
         </BlurFade>
@@ -87,7 +154,7 @@ export default function ProjectDetailPage({
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 8}>
           <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech, idx) => (
+            {project.technologies.map((tech) => (
               <Badge key={tech} variant="secondary" className="text-sm">
                 {tech}
               </Badge>
@@ -96,102 +163,12 @@ export default function ProjectDetailPage({
         </BlurFade>
       </section>
 
-      {/* Project Details */}
-      <section className="space-y-4">
-        <BlurFade delay={BLUR_FADE_DELAY * 9}>
-          <SectionLabel>Key Features &amp; Highlights</SectionLabel>
-        </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 10}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <DashedBox>
-              <h3 className="font-semibold text-primary mb-2">Frontend</h3>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>✓ Responsive design with mobile-first approach</li>
-                <li>✓ Modern UI with Tailwind CSS</li>
-                <li>✓ Smooth animations & transitions</li>
-              </ul>
-            </DashedBox>
-            <DashedBox>
-              <h3 className="font-semibold text-primary mb-2">Backend</h3>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>✓ RESTful API design</li>
-                <li>✓ Secure authentication & authorization</li>
-                <li>✓ Database optimization</li>
-              </ul>
-            </DashedBox>
-            <DashedBox>
-              <h3 className="font-semibold text-primary mb-2">Deployment</h3>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>✓ Cloud-hosted on Vercel/AWS</li>
-                <li>✓ CI/CD pipeline configured</li>
-                <li>✓ Production-ready & scalable</li>
-              </ul>
-            </DashedBox>
-            <DashedBox>
-              <h3 className="font-semibold text-primary mb-2">Performance</h3>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>✓ Optimized load times</li>
-                <li>✓ SEO best practices</li>
-                <li>✓ Cross-browser compatible</li>
-              </ul>
-            </DashedBox>
-          </div>
-        </BlurFade>
-      </section>
-
-      {/* How It's Made */}
-      <section className="space-y-4">
-        <BlurFade delay={BLUR_FADE_DELAY * 11}>
-          <SectionLabel>How It&apos;s Built</SectionLabel>
-        </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 12}>
-          <div className="space-y-4 text-muted-foreground">
-            <div className="space-y-2">
-              <h4 className="font-semibold text-foreground">Architecture</h4>
-              <p>
-                Built with modern full-stack architecture using Next.js for
-                server-side rendering and static generation, ensuring optimal
-                performance and SEO. The backend API is powered by Node.js and
-                Express.js with MongoDB for persistent data storage.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold text-foreground">Development Process</h4>
-              <p>
-                Developed following agile methodology with Git-based workflow.
-                Implemented using component-driven development with React for
-                reusable, maintainable UI components. Database schema designed
-                for scalability with proper indexing for query optimization.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold text-foreground">Authentication & Security</h4>
-              <p>
-                Secured with JWT-based authentication and role-based access
-                control (RBAC). Implemented HTTPS encryption, environment
-                variables for sensitive data, and validated inputs on both
-                client and server sides.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold text-foreground">Deployment</h4>
-              <p>
-                Deployed on cloud platforms (Vercel for frontend, AWS for
-                backend) with CI/CD pipeline using GitHub Actions. Implemented
-                automated testing, linting, and build processes for reliable
-                deployments.
-              </p>
-            </div>
-          </div>
-        </BlurFade>
-      </section>
-
       {/* Call to Action */}
       <section className="space-y-4 pt-8 border-t">
-        <BlurFade delay={BLUR_FADE_DELAY * 13}>
+        <BlurFade delay={BLUR_FADE_DELAY * 9}>
           <SectionLabel>View This Project</SectionLabel>
         </BlurFade>
-        <BlurFade delay={BLUR_FADE_DELAY * 14}>
+        <BlurFade delay={BLUR_FADE_DELAY * 10}>
           <div className="flex gap-3 flex-wrap">
             {project.href && (
               <a

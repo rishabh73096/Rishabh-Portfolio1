@@ -155,7 +155,7 @@ export const DATA = {
         "Vercel",
       ],
       links: [],
-      image: "/images/image1.png",
+      image: "/images/grocery-pickup-store.png",
       video: "",
     },
     {
@@ -205,7 +205,7 @@ export const DATA = {
         "Calendar algorithms",
       ],
       links: [],
-      image: "/images/image3.png",
+      image: "/images/my-lodge-rental-platform.png",
       video: "",
     },
     {
@@ -227,7 +227,7 @@ export const DATA = {
         "JWT Authentication",
       ],
       links: [],
-      image: "/images/image4.png",
+      image: "/images/hariir-job-portal.png",
       video: "",
     },
     {

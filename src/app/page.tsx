@@ -13,6 +13,8 @@ import { GithubContributions } from "@/components/github-contributions";
 import { Icons } from "@/components/icons";
 import { DATA } from "@/data/resume";
 import { BLOGS } from "@/data/blogs";
+import { SERVICES } from "@/data/services";
+import { FAQ } from "@/data/faq";
 import { MapPinIcon, DownloadIcon } from "lucide-react";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -40,9 +42,44 @@ export const revalidate = 3600;
 
 const githubUsername = DATA.contact.social.GitHub.url.split("/").filter(Boolean).pop()!;
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
+const profilePageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    name: DATA.name,
+    url: DATA.url,
+    jobTitle: "Full Stack Developer",
+    description: DATA.description,
+  },
+};
+
 export default function Page() {
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
+      />
       <section id="hero">
         <div className="mx-auto w-full max-w-4xl space-y-8">
           <div className="gap-4 flex flex-col md:flex-row md:justify-between md:items-start items-center">
@@ -182,6 +219,34 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
+      <section id="services">
+        <div className="flex min-h-0 flex-col gap-y-4">
+          <BlurFade delay={BLUR_FADE_DELAY * 9.7}>
+            <SectionLabel>Services</SectionLabel>
+          </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 9.8}>
+            <p className="text-sm text-muted-foreground">
+              Available for freelance, contract and remote full-stack
+              development work in India and worldwide.
+            </p>
+          </BlurFade>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {SERVICES.map((service, id) => (
+              <BlurFade
+                key={service.title}
+                delay={BLUR_FADE_DELAY * 9.9 + id * 0.03}
+              >
+                <DashedBox className="h-full">
+                  <h3 className="font-semibold">{service.title}</h3>
+                  <p className="mt-1.5 text-sm text-muted-foreground">
+                    {service.description}
+                  </p>
+                </DashedBox>
+              </BlurFade>
+            ))}
+          </div>
+        </div>
+      </section>
       <section id="github">
         <div className="flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 10}>
@@ -297,6 +362,35 @@ export default function Page() {
                 View All Articles →
               </Link>
             </div>
+          </BlurFade>
+        </div>
+      </section>
+      <section id="faq">
+        <div className="flex min-h-0 flex-col gap-y-4">
+          <BlurFade delay={BLUR_FADE_DELAY * 15}>
+            <SectionLabel>FAQ</SectionLabel>
+          </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 15.2}>
+            <DashedBox className="divide-y divide-dashed divide-border p-0">
+              {FAQ.map((item) => (
+                <details key={item.question} className="group px-5 py-4 first:rounded-t-2xl last:rounded-b-2xl">
+                  <summary className="cursor-pointer list-none font-medium marker:content-none">
+                    <span className="flex items-center justify-between gap-4">
+                      {item.question}
+                      <span
+                        aria-hidden
+                        className="shrink-0 text-muted-foreground transition-transform group-open:rotate-45"
+                      >
+                        +
+                      </span>
+                    </span>
+                  </summary>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {item.answer}
+                  </p>
+                </details>
+              ))}
+            </DashedBox>
           </BlurFade>
         </div>
       </section>

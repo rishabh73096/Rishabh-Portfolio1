@@ -1,11 +1,29 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { BLOGS } from "@/data/blogs";
+import { DATA } from "@/data/resume";
 import { Badge } from "@/components/ui/badge";
+import { slugify } from "@/lib/utils";
 import Markdown from "react-markdown";
 import Image from "next/image";
 import BlurFade from "@/components/magicui/blur-fade";
 
 const BLUR_FADE_DELAY = 0.04;
+
+// blog.projectId is a short id (see src/data/blogs.tsx); map it to the
+// matching project's real title so the slug always lines up with
+// /projects/[slug] instead of pointing at a stale, made-up path.
+const PROJECT_ID_TO_TITLE: Record<string, string> = {
+  clee: "Clee — Full-Stack SaaS Platform for Beauty & Wellness Businesses",
+  forma: "Forma Construction",
+  grocery: "Grocery Pickup Store",
+  mylodge: "My Lodge",
+};
+
+function projectSlugFor(projectId?: string) {
+  const title = projectId ? PROJECT_ID_TO_TITLE[projectId] : undefined;
+  return title ? slugify(title) : undefined;
+}
 
 export async function generateStaticParams() {
   return BLOGS.map((blog) => ({
@@ -15,10 +33,32 @@ export async function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const blog = BLOGS.find((b) => b.slug === params.slug);
+  if (!blog) return {};
+
+  const title = blog.title;
+  const description = blog.excerpt;
 
   return {
-    title: blog?.title,
-    description: blog?.excerpt,
+    title,
+    description,
+    alternates: {
+      canonical: `/blog/${blog.slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `/blog/${blog.slug}`,
+      type: "article",
+      publishedTime: blog.date,
+      authors: [DATA.name],
+      images: blog.image ? [{ url: blog.image }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: blog.image ? [blog.image] : undefined,
+    },
   };
 }
 
@@ -26,8 +66,10 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
   const blog = BLOGS.find((b) => b.slug === params.slug);
 
   if (!blog) {
-    return <div>Blog not found</div>;
+    notFound();
   }
+
+  const projectSlug = projectSlugFor(blog.projectId);
 
   const relatedBlogs = BLOGS.filter(
     (b) => b.category === blog.category && b.id !== blog.id
@@ -120,11 +162,11 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
               </div>
             </div>
 
-            {blog.projectName && (
+            {blog.projectName && projectSlug && (
               <div>
                 <h3 className="text-sm font-semibold mb-3">Featured Project</h3>
                 <Link
-                  href={`/projects/${blog.projectId}`}
+                  href={`/projects/${projectSlug}`}
                   className="flex items-center gap-3 p-4 rounded-xl border border-dashed border-border hover:border-foreground/40 transition-colors"
                 >
                   <div className="w-12 h-12 relative rounded-md overflow-hidden flex-shrink-0">
