@@ -3,6 +3,8 @@ import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SiteStructuredData } from "@/components/structured-data";
+import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
+import { OfflineBanner } from "@/components/offline-banner";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
@@ -101,8 +103,10 @@ export default function RootLayout({
         )}
       >
         <SiteStructuredData />
+        <ServiceWorkerRegistration />
         <ThemeProvider attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
+            <OfflineBanner />
             <div className="mx-auto w-full max-w-4xl px-6 py-8 sm:py-12">
               <Navbar />
               {children}
