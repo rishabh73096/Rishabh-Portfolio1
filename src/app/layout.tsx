@@ -103,7 +103,7 @@ export default function RootLayout({
         <SiteStructuredData />
         <ThemeProvider attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
-            <div className="mx-auto w-full max-w-3xl px-6 py-8 sm:py-12">
+            <div className="mx-auto w-full max-w-4xl px-6 py-8 sm:py-12">
               <Navbar />
               {children}
               <Footer />
