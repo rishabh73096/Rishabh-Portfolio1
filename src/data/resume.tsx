@@ -85,7 +85,7 @@ export const DATA = {
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/rishabh-tiwari",
+        url: "https://www.linkedin.com/in/rishabhtiwari73/",
         navbar: true,
       },
       email: {
