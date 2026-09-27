@@ -18,6 +18,7 @@ const PROJECT_ID_TO_TITLE: Record<string, string> = {
   forma: "Forma Construction",
   grocery: "Grocery Pickup Store",
   mylodge: "My Lodge",
+  tobaline: "Tobaline — Sustainable Luxury Fashion E-Commerce",
 };
 
 function projectSlugFor(projectId?: string) {

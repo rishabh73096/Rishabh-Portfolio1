@@ -253,7 +253,7 @@ db.documents.createIndex({ projectId: 1 });
     category: "Backend",
     projectName: "Grocery Pickup Store",
     projectId: "grocery",
-    image: "/images/image1.png",
+    image: "/images/grocery-pickup-store.png",
     tags: ["Stripe", "Payments", "Node.js"],
     content: `# Stripe Payments in Node.js: Integration to Webhooks
 
@@ -390,7 +390,7 @@ app.get('/projects', async (req, res) => {
     category: "Backend",
     projectName: "My Lodge",
     projectId: "mylodge",
-    image: "/images/image3.png",
+    image: "/images/my-lodge-rental-platform.png",
     tags: ["Socket.io", "Node.js", "Real-time"],
     content: `# Real-Time Features with Socket.io in Node.js
 
@@ -760,7 +760,7 @@ npm test -- --watch       # Watch mode
     category: "Frontend",
     projectName: "Grocery Pickup Store",
     projectId: "grocery",
-    image: "/images/image1.png",
+    image: "/images/grocery-pickup-store.png",
     tags: ["React", "Tailwind CSS", "Responsive"],
     content: `# Responsive Design in React: Mobile-First with Tailwind
 
@@ -811,6 +811,195 @@ xl: 1280px  (large)
 - Initial load: <2s on 4G
 - Interaction: <100ms
 - Images: Optimized & lazy-loaded
+`
+  },
+  {
+    id: "13",
+    title: "Caching Product Lookups with Redis: A Cache-Aside Pattern",
+    slug: "redis-caching-product-lookups",
+    excerpt: "Cutting stock/product lookups to sub-100ms in the Grocery Pickup Store using a Redis cache-aside layer in front of MongoDB.",
+    date: "2025-07-10",
+    readTime: 6,
+    category: "Performance",
+    projectName: "Grocery Pickup Store",
+    projectId: "grocery",
+    image: "/images/grocery-pickup-store.png",
+    tags: ["Redis", "Node.js", "Performance"],
+    content: `# Caching Product Lookups with Redis: A Cache-Aside Pattern
+
+Grocery Pickup Store serves the same handful of popular products to hundreds of concurrent shoppers. Hitting MongoDB for every stock check doesn't scale — this is the cache-aside layer that got frequent lookups down to sub-100ms.
+
+## The Pattern
+
+\`\`\`javascript
+async function getProductStock(productId) {
+  const cached = await redis.get(\`stock:\${productId}\`);
+  if (cached) return JSON.parse(cached);
+
+  const product = await Product.findById(productId).lean();
+  await redis.set(\`stock:\${productId}\`, JSON.stringify(product), "EX", 30);
+  return product;
+}
+\`\`\`
+
+Read from Redis first. On a miss, fall back to MongoDB and repopulate the cache with a short TTL — stock changes often enough that a long TTL would serve stale numbers.
+
+## Invalidating on Write
+
+\`\`\`javascript
+async function updateStock(productId, quantity) {
+  await Product.updateOne({ _id: productId }, { $inc: { stock: -quantity } });
+  await redis.del(\`stock:\${productId}\`); // next read repopulates it
+}
+\`\`\`
+
+Delete, don't update, the cache key on a write. Recomputing on the next read is simpler than keeping two stores in sync, and the TTL is the safety net if a delete is ever missed.
+
+## Why Cache-Aside Over Write-Through
+
+- No cache-write path to keep correct under concurrent checkout — only reads touch Redis directly.
+- A Redis outage degrades to "every request hits Mongo," not a hard failure — the app still works, just slower.
+- Short TTL (30s) bounds staleness without needing an event bus to invalidate perfectly.
+
+## Result
+
+Frequent product/stock lookups went from a MongoDB round-trip to a sub-100ms Redis read, with checkout still validating the authoritative stock count in MongoDB before confirming an order.
+`
+  },
+  {
+    id: "14",
+    title: "Automating Transactional Emails with Postmark in Node.js",
+    slug: "postmark-transactional-emails",
+    excerpt: "Templated transactional emails and marketing automation flows for Clee's booking platform, built on Postmark's Node.js SDK.",
+    date: "2025-07-25",
+    readTime: 6,
+    category: "Backend",
+    projectName: "Clee",
+    projectId: "clee",
+    image: "/images/Clee.png",
+    tags: ["Postmark", "Node.js", "Email"],
+    content: `# Automating Transactional Emails with Postmark in Node.js
+
+Clee needed two very different kinds of email out of the same backend: transactional (booking confirmations, receipts) that must land instantly and reliably, and marketing automation (re-engagement, promos) that can tolerate delay. Postmark's message streams map directly onto that split.
+
+## Two Streams, One SDK
+
+\`\`\`javascript
+const postmark = require("postmark");
+const client = new postmark.ServerClient(process.env.POSTMARK_TOKEN);
+
+// Transactional — outbound stream, sent immediately
+await client.sendEmailWithTemplate({
+  From: "bookings@clee.co",
+  To: customer.email,
+  TemplateAlias: "booking-confirmation",
+  TemplateModel: { name: customer.name, date, time, service },
+  MessageStream: "outbound",
+});
+
+// Marketing — broadcast stream, respects unsubscribe state
+await client.sendEmailWithTemplate({
+  From: "hello@clee.co",
+  To: customer.email,
+  TemplateAlias: "promo-digest",
+  TemplateModel: { name: customer.name, offers },
+  MessageStream: "broadcast",
+});
+\`\`\`
+
+Keeping transactional and marketing traffic on separate streams protects deliverability — a spike in promotional sends, or a complaint on one, doesn't threaten the booking confirmations customers are actively waiting for.
+
+## Handling Bounces and Complaints
+
+\`\`\`javascript
+app.post("/webhooks/postmark", (req, res) => {
+  const { RecordType, Email } = req.body;
+  if (RecordType === "Bounce" || RecordType === "SpamComplaint") {
+    await Customer.updateOne({ email: Email }, { emailSuppressed: true });
+  }
+  res.sendStatus(200);
+});
+\`\`\`
+
+A suppression webhook keeps the customer record in sync — once an address bounces or complains, later sends check that flag before going out, rather than repeatedly hitting an address Postmark has already flagged.
+
+## Idempotent Sends
+
+Booking confirmations are triggered from the same payment-webhook handler that could, in principle, fire twice. Each send carries the booking ID as Postmark's \`Tag\`, so a duplicate trigger is easy to detect and skip against a "confirmation already sent" flag on the booking record — the same idempotency discipline used for the Stripe payment confirmation itself.
+
+## Key Lessons
+
+1. **Separate streams by intent** — never let marketing volume put transactional deliverability at risk.
+2. **Webhook the suppression list** — don't keep mailing an address that already bounced.
+3. **Tag sends for idempotency** — a webhook retry should never mean a customer gets the same email twice.
+`
+  },
+  {
+    id: "15",
+    title: "Shipping a Static-Export Next.js Storefront with AR/EN Localization",
+    slug: "nextjs-static-export-i18n",
+    excerpt: "Building Tobaline's bilingual (Arabic/English) storefront as a statically-exported Next.js site, and what that trades off against SSR.",
+    date: "2025-08-15",
+    readTime: 7,
+    category: "Frontend",
+    projectName: "Tobaline",
+    projectId: "tobaline",
+    image: "/images/tobaline.png",
+    tags: ["Next.js", "i18n", "Static Export"],
+    content: `# Shipping a Static-Export Next.js Storefront with AR/EN Localization
+
+Tobaline is a luxury textile brand's storefront for a Middle-East-facing audience. Two decisions shaped the build: static export (\`next export\`) for cheap, fast hosting, and an AR/EN language switch that had to be RTL-ready from day one — not bolted on after the fact.
+
+## Why Static Export Here
+
+\`\`\`javascript
+// next.config.js
+module.exports = {
+  output: "export",
+  images: { unoptimized: true }, // no image optimization server at request time
+};
+\`\`\`
+
+Product and collection content changes infrequently, there's no per-user personalization on the storefront itself, and account/order-history routes were scoped to wire into a backend API later rather than block launch. That combination is exactly what static export is for: every page is prebuilt HTML, served from a CDN, with no server render on the request path.
+
+## Structuring for a Language Switch
+
+\`\`\`
+/app
+  /[locale]/
+    layout.tsx      # sets dir="rtl" | "ltr" based on locale
+    page.tsx
+    /collection/
+    /about/
+\`\`\`
+
+Locale lives in the route, not in cookies or headers — a static export has no request-time logic to read either of those. \`generateStaticParams\` produces both \`/en\` and \`/ar\` trees at build time, and the layout sets \`dir\` explicitly per locale rather than relying on the browser to guess:
+
+\`\`\`jsx
+export default function LocaleLayout({ children, params: { locale } }) {
+  return (
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+      <body>{children}</body>
+    </html>
+  );
+}
+\`\`\`
+
+## RTL Is a Layout Concern, Not a Translation Concern
+
+Swapping copy is the easy 20%. The rest is making sure Tailwind's directional utilities flip with the layout instead of silently staying left-anchored:
+
+\`\`\`jsx
+// Logical properties flip automatically with dir="rtl" — physical ones don't
+<div className="ms-4 pe-6 text-start"> {/* correct */}
+<div className="ml-4 pr-6 text-left">  {/* breaks in RTL */}
+\`\`\`
+
+Using \`ms-\`/\`me-\`/\`ps-\`/\`pe-\` (logical) instead of \`ml-\`/\`mr-\`/\`pl-\`/\`pr-\` (physical) meant the mega-menu, product grid and cart drawer all mirrored correctly in Arabic without a second, RTL-specific set of styles to maintain.
+
+## The Trade-off
+
+Static export means no server-side personalization or A/B testing without adding a separate service, and any content edit needs a rebuild rather than a live CMS push. For a catalog-driven storefront with infrequent content changes, that trade bought first paint speed and hosting simplicity the project didn't have to build itself.
 `
   }
 ];
