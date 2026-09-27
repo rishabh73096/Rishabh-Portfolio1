@@ -1,28 +1,16 @@
-import { Dock, DockIcon } from "@/components/magicui/dock";
+"use client";
+
 import { ModeToggle } from "@/components/mode-toggle";
-import { buttonVariants } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Icons } from "@/components/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
-import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { HomeIcon, NotebookIcon } from "lucide-react";
-
-const getNavIcon = (label: string) => {
-  switch (label) {
-    case "Home":
-      return HomeIcon;
-    case "Projects":
-      return NotebookIcon;
-    default:
-      return HomeIcon;
-  }
-};
+import { usePathname } from "next/navigation";
 
 const getSocialIcon = (name: string) => {
   switch (name) {
@@ -40,71 +28,55 @@ const getSocialIcon = (name: string) => {
 };
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-4 flex origin-bottom h-full max-h-14">
-      <div className="fixed bottom-0 inset-x-0 h-16 w-full bg-background to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)] dark:bg-background"></div>
-      <Dock className="z-50 pointer-events-auto relative mx-auto flex min-h-full h-full items-center px-1 bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] ">
+    <header className="flex items-center justify-between gap-4 pb-8 sm:pb-12">
+      <nav className="flex items-center gap-4 font-mono text-sm sm:gap-6">
         {DATA.navbar.map((item) => {
-          const Icon = getNavIcon(item.label);
+          const isActive =
+            item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
           return (
-            <DockIcon key={item.href}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      buttonVariants({ variant: "ghost", size: "icon" }),
-                      "size-12"
-                    )}
-                  >
-                    <Icon className="size-4" />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{item.label}</p>
-                </TooltipContent>
-              </Tooltip>
-            </DockIcon>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "transition-colors",
+                isActive
+                  ? "font-semibold text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {item.label}
+            </Link>
           );
         })}
-        <Separator orientation="vertical" className="h-full" />
+      </nav>
+      <div className="flex items-center gap-1">
         {Object.entries(DATA.contact.social)
           .filter(([_, social]) => social.navbar)
           .map(([name, social]) => {
             const Icon = getSocialIcon(name);
             return (
-              <DockIcon key={name}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link
-                      href={social.url}
-                      className={cn(
-                        buttonVariants({ variant: "ghost", size: "icon" }),
-                        "size-12"
-                      )}
-                    >
-                      <Icon className="size-4" />
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{name}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </DockIcon>
+              <Tooltip key={name}>
+                <TooltipTrigger asChild>
+                  <Link
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  >
+                    <Icon className="size-4" />
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{name}</p>
+                </TooltipContent>
+              </Tooltip>
             );
           })}
-        <Separator orientation="vertical" className="h-full py-2" />
-        <DockIcon>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <ModeToggle />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Theme</p>
-            </TooltipContent>
-          </Tooltip>
-        </DockIcon>
-      </Dock>
-    </div>
+        <ModeToggle />
+      </div>
+    </header>
   );
 }

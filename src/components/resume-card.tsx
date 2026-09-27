@@ -18,6 +18,8 @@ interface ResumeCardProps {
   badges?: readonly string[];
   period: string;
   description?: string;
+  /** Renders a status pill: green "Active" dot when true, neutral "Done" when false. Omit to hide. */
+  active?: boolean;
 }
 export const ResumeCard = ({
   logoUrl,
@@ -28,6 +30,7 @@ export const ResumeCard = ({
   badges,
   period,
   description,
+  active,
 }: ResumeCardProps) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
@@ -44,7 +47,7 @@ export const ResumeCard = ({
       className="block cursor-pointer"
       onClick={handleClick}
     >
-      <Card className="flex">
+      <Card className="flex p-4 transition-colors hover:border-foreground/40">
         <div className="flex-none">
           <Avatar className="border size-12 m-auto bg-muted-background dark:bg-foreground">
             <AvatarImage
@@ -56,10 +59,21 @@ export const ResumeCard = ({
           </Avatar>
         </div>
         <div className="flex-grow ml-4 items-center flex-col group min-w-0">
-          <CardHeader>
+          <CardHeader className="p-0">
             <div className="flex flex-col gap-1 text-base sm:flex-row sm:items-start sm:justify-between sm:gap-x-2">
-              <h3 className="flex flex-wrap items-center gap-x-1 gap-y-1 font-semibold leading-none text-xs sm:text-sm">
+              <h3 className="flex flex-wrap items-center gap-x-1.5 gap-y-1 font-semibold leading-none text-xs sm:text-sm">
                 {title}
+                {typeof active === "boolean" && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-2 py-0.5 font-mono text-[10px] font-normal text-muted-foreground">
+                    <span
+                      className={cn(
+                        "size-1.5 rounded-full",
+                        active ? "bg-success" : "bg-muted-foreground/60"
+                      )}
+                    />
+                    {active ? "Active" : "Done"}
+                  </span>
+                )}
                 {badges && (
                   <span className="inline-flex flex-wrap gap-1">
                     {badges.map((badge, index) => (
@@ -80,11 +94,11 @@ export const ResumeCard = ({
                   )}
                 />
               </h3>
-              <div className="text-xs sm:text-sm tabular-nums text-muted-foreground shrink-0 sm:text-right">
+              <div className="text-xs sm:text-sm tabular-nums font-mono text-muted-foreground shrink-0 sm:text-right">
                 {period}
               </div>
             </div>
-            {subtitle && <div className="font-sans text-xs">{subtitle}</div>}
+            {subtitle && <div className="font-sans text-xs text-muted-foreground">{subtitle}</div>}
           </CardHeader>
           {description && (
             <motion.div

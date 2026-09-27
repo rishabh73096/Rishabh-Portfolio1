@@ -3,6 +3,8 @@ import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { BLOGS } from "@/data/blogs";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { DashedBox } from "@/components/ui/dashed-box";
 import Image from "next/image";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -19,7 +21,7 @@ export default function BlogPage() {
       <BlurFade delay={BLUR_FADE_DELAY}>
         <Link
           href="/"
-          className="text-primary hover:underline text-sm font-medium w-fit"
+          className="font-mono text-sm font-medium text-muted-foreground hover:text-foreground w-fit transition-colors"
         >
           ← Back to Home
         </Link>
@@ -51,8 +53,8 @@ export default function BlogPage() {
               delay={BLUR_FADE_DELAY * 3 + idx * 0.05}
             >
               <Link href={`/blog/${blog.slug}`}>
-                <article className="group cursor-pointer h-full">
-                  <div className="relative w-full h-40 mb-4 overflow-hidden rounded-lg">
+                <Card className="group h-full cursor-pointer overflow-hidden p-3 transition-colors hover:border-foreground/40">
+                  <div className="relative w-full h-40 mb-3 overflow-hidden rounded-lg">
                     <Image
                       src={blog.image}
                       alt={blog.title}
@@ -66,7 +68,7 @@ export default function BlogPage() {
                       <Badge variant="outline" className="text-xs">
                         {blog.category}
                       </Badge>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-xs font-mono text-muted-foreground">
                         {blog.readTime} min read
                       </span>
                     </div>
@@ -79,10 +81,10 @@ export default function BlogPage() {
                       {blog.excerpt}
                     </p>
 
-                    <div className="flex items-center justify-between pt-2 text-xs text-muted-foreground">
+                    <div className="flex items-center justify-between pt-2 text-xs font-mono text-muted-foreground">
                       <div className="flex items-center gap-2">
                         {blog.projectName && (
-                          <span className="text-primary font-medium">
+                          <span className="text-primary font-sans font-medium">
                             {blog.projectName}
                           </span>
                         )}
@@ -102,7 +104,7 @@ export default function BlogPage() {
                       ))}
                     </div>
                   </div>
-                </article>
+                </Card>
               </Link>
             </BlurFade>
           ))}
@@ -110,9 +112,9 @@ export default function BlogPage() {
       </section>
 
       {/* Stats */}
-      <section id="blog-stats" className="pt-12 border-t">
+      <section id="blog-stats" className="pt-4">
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <div className="grid grid-cols-3 gap-4 md:gap-8">
+          <DashedBox className="grid grid-cols-3 gap-4 md:gap-8">
             <div className="text-center space-y-2">
               <div className="text-3xl font-bold text-primary">
                 {BLOGS.length}
@@ -131,7 +133,7 @@ export default function BlogPage() {
               </div>
               <p className="text-sm text-muted-foreground">Categories</p>
             </div>
-          </div>
+          </DashedBox>
         </BlurFade>
       </section>
     </main>

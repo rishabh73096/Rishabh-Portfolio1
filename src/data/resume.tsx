@@ -80,12 +80,12 @@ export const DATA = {
     social: {
       GitHub: {
         name: "GitHub",
-        url: "https://github.com/rishabh-tiwari",
+        url: "https://github.com/rishabh73096",
         navbar: true,
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/rishabh-tiwari",
+        url: "https://www.linkedin.com/in/rishabhtiwari73/",
         navbar: true,
       },
       email: {

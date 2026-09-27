@@ -38,7 +38,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
       <BlurFade delay={BLUR_FADE_DELAY}>
         <Link
           href="/blog"
-          className="text-primary hover:underline text-sm font-medium w-fit"
+          className="font-mono text-sm font-medium text-muted-foreground hover:text-foreground w-fit transition-colors"
         >
           ← Back to Articles
         </Link>
@@ -85,7 +85,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
         </BlurFade>
 
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
-          <div className="relative w-full h-96 rounded-lg overflow-hidden">
+          <div className="relative w-full h-96 rounded-xl overflow-hidden border border-dashed border-border">
             <Image
               src={blog.image}
               alt={blog.title}
@@ -125,7 +125,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
                 <h3 className="text-sm font-semibold mb-3">Featured Project</h3>
                 <Link
                   href={`/projects/${blog.projectId}`}
-                  className="flex items-center gap-3 p-4 rounded-lg border hover:border-primary transition-colors"
+                  className="flex items-center gap-3 p-4 rounded-xl border border-dashed border-border hover:border-foreground/40 transition-colors"
                 >
                   <div className="w-12 h-12 relative rounded-md overflow-hidden flex-shrink-0">
                     <Image
@@ -160,7 +160,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
                     href={`/blog/${relatedBlog.slug}`}
                     className="group"
                   >
-                    <article className="space-y-2 p-4 rounded-lg border hover:border-primary transition-colors h-full">
+                    <article className="space-y-2 p-4 rounded-xl border border-dashed border-border hover:border-foreground/40 transition-colors h-full">
                       <p className="text-xs text-muted-foreground">
                         {relatedBlog.category}
                       </p>

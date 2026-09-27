@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
+import { DashedBox } from "@/components/ui/dashed-box";
+import { SectionLabel } from "@/components/ui/section-label";
 import { DATA } from "@/data/resume";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
@@ -29,7 +31,7 @@ export default function ProjectDetailPage({
       <BlurFade delay={BLUR_FADE_DELAY}>
         <Link
           href="/projects"
-          className="text-primary hover:underline text-sm font-medium"
+          className="font-mono text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
           ← Back to Projects
         </Link>
@@ -55,7 +57,7 @@ export default function ProjectDetailPage({
       {/* Project Image */}
       {project.image && (
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <div className="relative w-full aspect-video rounded-lg overflow-hidden border">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-dashed border-border">
             <Image
               src={project.image}
               alt={project.title}
@@ -68,11 +70,9 @@ export default function ProjectDetailPage({
 
       {/* Project Description */}
       <section className="space-y-4">
-        <BlurFadeText
-          delay={BLUR_FADE_DELAY * 5}
-          className="text-xl font-semibold"
-          text="Project Overview"
-        />
+        <BlurFade delay={BLUR_FADE_DELAY * 5}>
+          <SectionLabel>Project Overview</SectionLabel>
+        </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 6}>
           <p className="text-muted-foreground leading-relaxed text-lg">
             {project.description}
@@ -82,11 +82,9 @@ export default function ProjectDetailPage({
 
       {/* Technologies Used */}
       <section className="space-y-4">
-        <BlurFadeText
-          delay={BLUR_FADE_DELAY * 7}
-          className="text-xl font-semibold"
-          text="Technologies & Stack"
-        />
+        <BlurFade delay={BLUR_FADE_DELAY * 7}>
+          <SectionLabel>Technologies Used</SectionLabel>
+        </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 8}>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech, idx) => (
@@ -100,56 +98,52 @@ export default function ProjectDetailPage({
 
       {/* Project Details */}
       <section className="space-y-4">
-        <BlurFadeText
-          delay={BLUR_FADE_DELAY * 9}
-          className="text-xl font-semibold"
-          text="Key Features & Highlights"
-        />
+        <BlurFade delay={BLUR_FADE_DELAY * 9}>
+          <SectionLabel>Key Features &amp; Highlights</SectionLabel>
+        </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 10}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 rounded-lg border bg-card">
+            <DashedBox>
               <h3 className="font-semibold text-primary mb-2">Frontend</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>✓ Responsive design with mobile-first approach</li>
                 <li>✓ Modern UI with Tailwind CSS</li>
                 <li>✓ Smooth animations & transitions</li>
               </ul>
-            </div>
-            <div className="p-4 rounded-lg border bg-card">
+            </DashedBox>
+            <DashedBox>
               <h3 className="font-semibold text-primary mb-2">Backend</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>✓ RESTful API design</li>
                 <li>✓ Secure authentication & authorization</li>
                 <li>✓ Database optimization</li>
               </ul>
-            </div>
-            <div className="p-4 rounded-lg border bg-card">
+            </DashedBox>
+            <DashedBox>
               <h3 className="font-semibold text-primary mb-2">Deployment</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>✓ Cloud-hosted on Vercel/AWS</li>
                 <li>✓ CI/CD pipeline configured</li>
                 <li>✓ Production-ready & scalable</li>
               </ul>
-            </div>
-            <div className="p-4 rounded-lg border bg-card">
+            </DashedBox>
+            <DashedBox>
               <h3 className="font-semibold text-primary mb-2">Performance</h3>
               <ul className="text-sm text-muted-foreground space-y-1">
                 <li>✓ Optimized load times</li>
                 <li>✓ SEO best practices</li>
                 <li>✓ Cross-browser compatible</li>
               </ul>
-            </div>
+            </DashedBox>
           </div>
         </BlurFade>
       </section>
 
       {/* How It's Made */}
       <section className="space-y-4">
-        <BlurFadeText
-          delay={BLUR_FADE_DELAY * 11}
-          className="text-xl font-semibold"
-          text="How It's Built"
-        />
+        <BlurFade delay={BLUR_FADE_DELAY * 11}>
+          <SectionLabel>How It&apos;s Built</SectionLabel>
+        </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 12}>
           <div className="space-y-4 text-muted-foreground">
             <div className="space-y-2">
@@ -194,11 +188,9 @@ export default function ProjectDetailPage({
 
       {/* Call to Action */}
       <section className="space-y-4 pt-8 border-t">
-        <BlurFadeText
-          delay={BLUR_FADE_DELAY * 13}
-          className="text-xl font-semibold"
-          text="View This Project"
-        />
+        <BlurFade delay={BLUR_FADE_DELAY * 13}>
+          <SectionLabel>View This Project</SectionLabel>
+        </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 14}>
           <div className="flex gap-3 flex-wrap">
             {project.href && (
@@ -206,14 +198,14 @@ export default function ProjectDetailPage({
                 href={project.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
+                className="px-6 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
               >
                 View Live Project →
               </a>
             )}
             <Link
               href="/projects"
-              className="px-6 py-2 rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors font-medium"
+              className="px-6 py-2 rounded-md border border-border hover:bg-accent transition-colors font-medium"
             >
               Back to All Projects
             </Link>
