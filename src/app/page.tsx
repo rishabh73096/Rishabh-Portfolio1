@@ -9,6 +9,7 @@ import { DashedBox } from "@/components/ui/dashed-box";
 import { TimelineItem } from "@/components/timeline-item";
 import { AnimatedAvatar } from "@/components/animated-avatar";
 import { LiveClock } from "@/components/live-clock";
+import { GithubContributions } from "@/components/github-contributions";
 import { Icons } from "@/components/icons";
 import { DATA } from "@/data/resume";
 import { BLOGS } from "@/data/blogs";
@@ -33,6 +34,11 @@ const getSocialIcon = (name: string) => {
 };
 
 const BLUR_FADE_DELAY = 0.04;
+
+// Refresh the GitHub contribution graph at most once an hour.
+export const revalidate = 3600;
+
+const githubUsername = DATA.contact.social.GitHub.url.split("/").filter(Boolean).pop()!;
 
 export default function Page() {
   return (
@@ -172,6 +178,18 @@ export default function Page() {
                   {skill}
                 </Badge>
               ))}
+            </DashedBox>
+          </BlurFade>
+        </div>
+      </section>
+      <section id="github">
+        <div className="flex min-h-0 flex-col gap-y-4">
+          <BlurFade delay={BLUR_FADE_DELAY * 10}>
+            <SectionLabel>GitHub Activity</SectionLabel>
+          </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 10.5}>
+            <DashedBox>
+              <GithubContributions username={githubUsername} />
             </DashedBox>
           </BlurFade>
         </div>
