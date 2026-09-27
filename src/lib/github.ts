@@ -27,7 +27,7 @@ async function fetchYear(username: string, year: number) {
   const html = await res.text();
 
   const totalMatch = html.match(
-    /id="js-contribution-activity-description"[^>]*>\s*([\d,]+)\s*\n?\s*contributions/
+    /id="js-contribution-activity-description"[^>]*>\s*([\d,]+)\s*\n?\s*contributions?\b/
   );
   const total = totalMatch ? Number(totalMatch[1].replace(/,/g, "")) : 0;
 

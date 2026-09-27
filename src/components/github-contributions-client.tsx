@@ -2,22 +2,32 @@
 
 import { useState } from "react";
 import type { ContributionData, ContributionDay } from "@/lib/github";
-import { toWeeks, monthLabels } from "@/lib/github-heatmap";
+import { toWeeks, monthLabels, generateEmptyYear } from "@/lib/github-heatmap";
 import { cn } from "@/lib/utils";
 
+const WINDOW_RADIUS = 4;
+
+// GitHub's own light/dark contribution-graph green scale.
 const LEVEL_CLASS: Record<ContributionDay["level"], string> = {
-  0: "bg-foreground/[0.06]",
-  1: "bg-foreground/25",
-  2: "bg-foreground/45",
-  3: "bg-foreground/70",
-  4: "bg-foreground",
+  0: "bg-[#ebedf0] dark:bg-[#161b22]",
+  1: "bg-[#9be9a8] dark:bg-[#0e4429]",
+  2: "bg-[#40c463] dark:bg-[#006d32]",
+  3: "bg-[#30a14e] dark:bg-[#26a641]",
+  4: "bg-[#216e39] dark:bg-[#39d353]",
 };
 
 export function GithubContributionsClient({ data }: { data: ContributionData }) {
-  const [year, setYear] = useState(data.years[0]);
+  const [year, setYear] = useState(Number(data.years[0] ?? new Date().getFullYear()));
 
-  const days = data.daysByYear[year] ?? [];
-  const total = data.totals[year] ?? 0;
+  // A sliding ±4-year window centered on whichever year is selected: pick an
+  // edge year and the window recenters around it (2022 -> 2018-2026, 2026 -> 2022-2030).
+  const windowYears = Array.from(
+    { length: WINDOW_RADIUS * 2 + 1 },
+    (_, i) => year - WINDOW_RADIUS + i
+  );
+
+  const days = data.daysByYear[String(year)] ?? generateEmptyYear(year);
+  const total = data.totals[String(year)] ?? 0;
   const weeks = toWeeks(days);
   const labels = monthLabels(weeks);
 
@@ -28,7 +38,7 @@ export function GithubContributionsClient({ data }: { data: ContributionData }) 
           {total.toLocaleString()} contributions in {year}
         </span>
         <div className="flex flex-wrap gap-1">
-          {data.years.map((y) => (
+          {windowYears.map((y) => (
             <button
               key={y}
               type="button"

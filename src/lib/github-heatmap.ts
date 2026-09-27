@@ -1,5 +1,19 @@
 import type { ContributionDay } from "@/lib/github";
 
+/** An all-empty (level 0) calendar for a year we have no fetched data for. */
+export function generateEmptyYear(year: number): ContributionDay[] {
+  const days: ContributionDay[] = [];
+  const isLeap = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  const daysInYear = isLeap ? 366 : 365;
+  const start = new Date(Date.UTC(year, 0, 1));
+  for (let i = 0; i < daysInYear; i++) {
+    const d = new Date(start);
+    d.setUTCDate(start.getUTCDate() + i);
+    days.push({ date: d.toISOString().slice(0, 10), count: 0, level: 0 });
+  }
+  return days;
+}
+
 export const MONTH_NAMES = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
