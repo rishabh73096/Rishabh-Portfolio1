@@ -11,9 +11,9 @@ interface AnimatedAvatarProps {
 }
 
 const sizeClasses = {
-  sm: "size-16",
-  md: "size-28",
-  lg: "size-40",
+  sm: "size-20",
+  md: "size-32",
+  lg: "size-48",
 };
 
 export function AnimatedAvatar({

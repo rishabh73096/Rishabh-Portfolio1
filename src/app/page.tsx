@@ -84,7 +84,7 @@ export default function Page() {
       <section id="hero">
         <div className="mx-auto w-full max-w-4xl space-y-8">
           <div className="gap-4 flex flex-col md:flex-row md:justify-between md:items-start items-center">
-            <div className="flex-col flex flex-1 space-y-1.5 md:order-1 order-2">
+            <div className="flex-col md:items-start items-center flex flex-1 space-y-1.5 md:order-1 order-2">
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-center md:text-left"
@@ -100,7 +100,7 @@ export default function Page() {
                 </div>
               </BlurFade>
               <BlurFadeText
-                className="max-w-[600px] md:text-xl text-center md:text-left"
+                className="mt-3 md:mt-0 max-w-[600px] md:text-xl text-center md:text-left"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />

@@ -8,7 +8,7 @@ export function DashedBox({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-dashed border-border p-5 sm:p-6",
+        "rounded-2xl border border-dashed border-border p-3 sm:p-6",
         className
       )}
       {...props}

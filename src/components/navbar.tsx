@@ -10,7 +10,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="flex items-center justify-between gap-4 pb-6 sm:pb-12">
+    <header className="flex items-center md:justify-between justify-center md:gap-4 gap-8 pb-6 sm:pb-12">
       <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-sm sm:gap-6">
         {DATA.navbar.map((item) => {
           const isActive =
@@ -31,7 +31,6 @@ export default function Navbar() {
           );
         })}
       </nav>
-      {/* On mobile these live in the fixed bottom dock instead (MobileDock). */}
       <SocialIcons className="hidden sm:flex" />
     </header>
   );
