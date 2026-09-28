@@ -31,8 +31,8 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="flex items-center justify-between gap-4 pb-8 sm:pb-12">
-      <nav className="flex items-center gap-4 font-mono text-sm sm:gap-6">
+    <header className="flex flex-col gap-3 pb-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:pb-12">
+      <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-sm sm:gap-6">
         {DATA.navbar.map((item) => {
           const isActive =
             item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
@@ -52,7 +52,7 @@ export default function Navbar() {
           );
         })}
       </nav>
-      <div className="flex items-center gap-1">
+      <div className="-mr-2 flex items-center gap-0.5 self-end sm:mr-0 sm:gap-1 sm:self-auto">
         {Object.entries(DATA.contact.social)
           .filter(([_, social]) => social.navbar)
           .map(([name, social]) => {
@@ -64,7 +64,7 @@ export default function Navbar() {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground sm:size-8"
                   >
                     <Icon className="size-4" />
                   </Link>

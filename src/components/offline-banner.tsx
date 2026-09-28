@@ -24,10 +24,10 @@ export function OfflineBanner() {
   return (
     <div
       role="status"
-      className="fixed inset-x-0 top-0 z-50 flex items-center justify-center gap-2 border-b border-dashed border-border bg-background/95 px-4 py-2 text-xs font-medium text-muted-foreground backdrop-blur"
+      className="fixed inset-x-0 top-0 z-50 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 border-b border-dashed border-border bg-background/95 px-4 py-2 text-center text-xs font-medium text-muted-foreground backdrop-blur"
     >
-      <WifiOffIcon className="size-3.5" />
-      You&apos;re offline — showing cached pages where available.
+      <WifiOffIcon className="size-3.5 shrink-0" />
+      <span>You&apos;re offline — showing cached pages where available.</span>
     </div>
   );
 }
