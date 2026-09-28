@@ -33,6 +33,12 @@ export const ResumeCard = ({
   active,
 }: ResumeCardProps) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
+  // Only clickable when it actually does something: expands a description,
+  // or links out somewhere real. Otherwise it's a plain card — no cursor,
+  // no chevron promising an interaction that doesn't exist (this is what
+  // Education cards hit before: no description, href "#", but the chevron
+  // still showed on hover as if clicking would open something).
+  const isInteractive = Boolean(description) || Boolean(href && href !== "#");
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (description) {
@@ -41,12 +47,7 @@ export const ResumeCard = ({
     }
   };
 
-  return (
-    <Link
-      href={href || "#"}
-      className="block cursor-pointer"
-      onClick={handleClick}
-    >
+  const cardContent = (
       <Card className="flex p-4 transition-colors hover:border-foreground/40">
         <div className="flex-none">
           <Avatar className="border size-12 m-auto bg-muted-background dark:bg-foreground">
@@ -87,12 +88,14 @@ export const ResumeCard = ({
                     ))}
                   </span>
                 )}
-                <ChevronRightIcon
-                  className={cn(
-                    "size-4 shrink-0 translate-x-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100",
-                    isExpanded ? "rotate-90" : "rotate-0"
-                  )}
-                />
+                {isInteractive && (
+                  <ChevronRightIcon
+                    className={cn(
+                      "size-4 shrink-0 translate-x-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100",
+                      isExpanded ? "rotate-90" : "rotate-0"
+                    )}
+                  />
+                )}
               </h3>
               <div className="text-xs sm:text-sm tabular-nums font-mono text-muted-foreground shrink-0 sm:text-right">
                 {period}
@@ -119,6 +122,15 @@ export const ResumeCard = ({
           )}
         </div>
       </Card>
+  );
+
+  if (!isInteractive) {
+    return <div className="block">{cardContent}</div>;
+  }
+
+  return (
+    <Link href={href || "#"} className="block cursor-pointer" onClick={handleClick}>
+      {cardContent}
     </Link>
   );
 };

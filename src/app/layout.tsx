@@ -1,4 +1,5 @@
 import Navbar from "@/components/navbar";
+import { MobileDock } from "@/components/mobile-dock";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -107,11 +108,12 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
             <OfflineBanner />
-            <div className="mx-auto w-full max-w-4xl px-6 py-8 sm:py-12">
+            <div className="mx-auto w-full max-w-4xl px-6 pt-8 pb-24 sm:py-12">
               <Navbar />
               {children}
               <Footer />
             </div>
+            <MobileDock />
           </TooltipProvider>
         </ThemeProvider>
       </body>
