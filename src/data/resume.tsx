@@ -1,3 +1,4 @@
+import { LayoutDashboardIcon, UsersIcon } from "lucide-react";
 
 export const DATA = {
 
@@ -316,13 +317,13 @@ export const DATA = {
     },
     {
       title: "Clee — Full-Stack SaaS Platform for Beauty & Wellness Businesses",
-      href: "https://app.clee.co/",
+      href: "https://cleverclee-for-consumer.vercel.app/",
       dates: "Jun 2025 - Present",
       active: true,
       shortDescription:
-        "Multi-tenant SaaS platform for beauty/wellness businesses. Technical challenge: managing concurrent booking updates across 4+ role types with real-time state sync. Solution: Redis-backed slot locking + Redux optimistic updates. Processing 100+ monthly transactions with 99.8% reliability.",
+        "Multi-tenant SaaS platform for beauty/wellness businesses, shipped as 3 live surfaces — consumer website, customer booking app, and admin dashboard. Technical challenge: managing concurrent booking updates across 4+ role types with real-time state sync. Solution: Redis-backed slot locking + Redux optimistic updates. Processing 100+ monthly transactions with 99.8% reliability.",
       description:
-        "Architected 3-tier SaaS platform from scratch: admin dashboard, customer marketplace, + REST API backend. Key technical decisions: Multi-tenant architecture using tenant ID isolation in MongoDB queries; Redis distributed locks for concurrent booking slot management (prevents overbooking); Redux state management with async thunks for real-time cart/booking synchronization. Built dynamic loyalty rewards engine with React formula builder UI allowing merchants to create fixed/percentage discounts with live preview. Implemented Postmark email infrastructure with templated transactional emails + marketing automation flows. Payment flow: Stripe payment intent + confirmation, Redux state management, Express async handlers for idempotent transactions. Database optimization: compound indexes on (tenantId, businessId, dateRange) for slot queries, reducing query time from 850ms → 120ms. Shipped 15+ business modules: real-time slot availability, staff scheduling (timesheets/leave), gift vouchers, promo codes, analytics dashboards. Reliably processing 100+ monthly transactions with 0 double-charges.",
+        "Architected 3-tier SaaS platform from scratch, deployed as three separate live applications: a consumer-facing website, a customer booking app, and an admin dashboard, all backed by one REST API. Key technical decisions: Multi-tenant architecture using tenant ID isolation in MongoDB queries; Redis distributed locks for concurrent booking slot management (prevents overbooking); Redux state management with async thunks for real-time cart/booking synchronization. Built dynamic loyalty rewards engine with React formula builder UI allowing merchants to create fixed/percentage discounts with live preview. Implemented Postmark email infrastructure with templated transactional emails + marketing automation flows. Payment flow: Stripe payment intent + confirmation, Redux state management, Express async handlers for idempotent transactions. Database optimization: compound indexes on (tenantId, businessId, dateRange) for slot queries, reducing query time from 850ms → 120ms. Shipped 15+ business modules: real-time slot availability, staff scheduling (timesheets/leave), gift vouchers, promo codes, analytics dashboards. Reliably processing 100+ monthly transactions with 0 double-charges.",
       technologies: [
         "Next.js (App Router)",
         "React.js",
@@ -337,7 +338,18 @@ export const DATA = {
         "JWT",
         "Mongoose",
       ],
-      links: [],
+      links: [
+        {
+          icon: <UsersIcon className="size-3" />,
+          type: "Booking App",
+          href: "https://clee-booking-web.vercel.app/",
+        },
+        {
+          icon: <LayoutDashboardIcon className="size-3" />,
+          type: "Admin Panel",
+          href: "https://clee-web-5k71.vercel.app/",
+        },
+      ],
       image: "/images/Clee.png",
       video: "",
     },

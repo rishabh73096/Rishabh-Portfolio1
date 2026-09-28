@@ -180,6 +180,18 @@ export default function ProjectDetailPage({
                 View Live Project →
               </a>
             )}
+            {project.links?.map((l, idx) => (
+              <a
+                key={idx}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-6 py-2 rounded-md border border-border hover:bg-accent transition-colors font-medium"
+              >
+                {l.icon}
+                {l.type}
+              </a>
+            ))}
             <Link
               href="/projects"
               className="px-6 py-2 rounded-md border border-border hover:bg-accent transition-colors font-medium"
