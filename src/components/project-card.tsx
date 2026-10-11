@@ -15,6 +15,7 @@ interface Props {
   tags: readonly string[];
   link?: string;
   image?: string;
+  imageFit?: "cover" | "contain";
   video?: string;
   links?: readonly {
     icon: React.ReactNode;
@@ -33,6 +34,7 @@ export function ProjectCard({
   tags,
   link,
   image,
+  imageFit = "cover",
   video,
   links,
   className,
@@ -66,7 +68,12 @@ export function ProjectCard({
             alt={title}
             width={500}
             height={300}
-            className="h-40 w-full object-cover object-top sm:h-full"
+            className={cn(
+              "h-44 w-full sm:h-full",
+              imageFit === "contain"
+                ? "bg-white object-contain object-center"
+                : "object-cover object-top"
+            )}
           />
         )}
       </Link>

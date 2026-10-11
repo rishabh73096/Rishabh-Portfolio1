@@ -19,7 +19,7 @@ const RAW_BLOGS: Blog[] = [
     title: "Multi-Tenant SaaS with MongoDB: Data Isolation & Performance",
     slug: "multi-tenant-mongodb-saas",
     excerpt: "Building Clee SaaS platform with MongoDB - tenant isolation, indexing strategies, and real-world lessons learned.",
-    date: "2025-06-10",
+    date: "2026-06-10",
     readTime: 7,
     category: "Backend",
     projectName: "Clee",
@@ -73,7 +73,7 @@ app.get('/api/bookings', (req, res) => {
     title: "Distributed Locks with Redis: Preventing Overbooking",
     slug: "redis-locks-booking",
     excerpt: "Prevent concurrent booking conflicts using Redis locks in Node.js - Clee's battle-tested solution.",
-    date: "2025-06-20",
+    date: "2026-06-20",
     readTime: 6,
     category: "Backend",
     projectName: "Clee",
@@ -133,7 +133,7 @@ async function bookSlot(slotId) {
     title: "Building a Loyalty Rewards Engine with React & Node.js",
     slug: "loyalty-rewards-engine",
     excerpt: "Clee's flexible rewards system: React formula builder + Node.js calculations.",
-    date: "2025-06-30",
+    date: "2026-06-30",
     readTime: 6,
     category: "Frontend",
     projectName: "Clee",
@@ -871,7 +871,7 @@ Frequent product/stock lookups went from a MongoDB round-trip to a sub-100ms Red
     title: "Automating Transactional Emails with Postmark in Node.js",
     slug: "postmark-transactional-emails",
     excerpt: "Templated transactional emails and marketing automation flows for Clee's booking platform, built on Postmark's Node.js SDK.",
-    date: "2025-07-25",
+    date: "2026-07-25",
     readTime: 6,
     category: "Backend",
     projectName: "Clee",
@@ -939,7 +939,7 @@ Booking confirmations are triggered from the same payment-webhook handler that c
     title: "Shipping a Static-Export Next.js Storefront with AR/EN Localization",
     slug: "nextjs-static-export-i18n",
     excerpt: "Building Tobaline's bilingual (Arabic/English) storefront as a statically-exported Next.js site, and what that trades off against SSR.",
-    date: "2025-08-15",
+    date: "2026-08-15",
     readTime: 7,
     category: "Frontend",
     projectName: "Tobaline",
@@ -1000,6 +1000,119 @@ Using \`ms-\`/\`me-\`/\`ps-\`/\`pe-\` (logical) instead of \`ml-\`/\`mr-\`/\`pl-
 ## The Trade-off
 
 Static export means no server-side personalization or A/B testing without adding a separate service, and any content edit needs a rebuild rather than a live CMS push. For a catalog-driven storefront with infrequent content changes, that trade bought first paint speed and hosting simplicity the project didn't have to build itself.
+`
+  },
+  {
+    id: "16",
+    title: "How LeadRescue AI Works: From Lost Enquiry to Booked Job",
+    slug: "how-leadrescue-ai-works",
+    excerpt: "A walkthrough of LeadRescue AI, the lead follow-up SaaS for cleaning companies and small service teams: capture, pipeline, reminders and AI-drafted replies.",
+    date: "2026-10-11",
+    readTime: 5,
+    category: "Product",
+    projectName: "LeadRescue AI",
+    projectId: "leadrescue",
+    image: "/images/leadrescue-ai.png",
+    tags: ["SaaS", "Lead Management", "AI", "Product"],
+    content: `# How LeadRescue AI Works: From Lost Enquiry to Booked Job
+
+Small service businesses rarely lose jobs because their work is bad. They lose them because an enquiry arrived while the team was busy, the reply came two days late, and the customer had already booked someone else. LeadRescue AI is built to close that gap: **rescue every enquiry before it goes cold.**
+
+## The Core Loop
+
+\`\`\`
+Enquiry comes in -> Lead is tracked -> Reminder says "reply today" -> AI drafts the reply -> You review and send -> Lead moves through the pipeline
+\`\`\`
+
+Every step exists to answer one question for the owner: *who needs a reply from me today?*
+
+## 1. Get Leads In
+
+Leads can be added one by one, or brought in all at once with **Import Leads** (for example, from a spreadsheet of past enquiries). Each lead keeps its contact details, where it came from, and an estimated job value.
+
+## 2. The Dashboard Answers "What Now?"
+
+The dashboard opens with four numbers:
+
+- **Open leads**: how many enquiries are still alive
+- **Need attention**: leads waiting on a reply, including those due today
+- **Open pipeline value**: the estimated money sitting in unfinished deals
+- **Win rate**: won leads as a share of closed leads
+
+Below that, charts show new leads over the last 14 days, how many leads sit in each stage, where leads come from, and the value in each stage. The goal is a two-minute morning check, not an analytics project.
+
+## 3. A Simple Pipeline
+
+Each lead moves through plain stages: **New, Contacted, Quote sent, Won, Lost**. The Pipeline view shows them as a board, so you can see at a glance where deals are stuck and which quotes have gone quiet.
+
+## 4. Follow-ups You Cannot Forget
+
+Set a follow-up date on any lead. The **Follow-ups** page lists what is due today and what is coming in the next 7 days, and the notification bell flags anything that needs attention. Nothing relies on someone remembering.
+
+## 5. AI-Drafted Replies, in English and Hindi
+
+On the **AI Replies** page, LeadRescue AI drafts a message for a lead, such as a first response, a quote follow-up or a gentle nudge, in **English or Hindi**, matching how your customers actually talk.
+
+## You Stay in Control
+
+This is the design decision I care most about: **LeadRescue AI only drafts and reminds. It never sends anything on its own.** You read the draft, edit it if you want, and send it yourself. For a small business, a wrong message to a real customer costs more than the minute saved, so the human stays the sender.
+
+## Who It's For
+
+Cleaning companies and small service teams, where the owner is often the person answering enquiries between jobs. For them, a lightweight tool that says "these four people need a reply" is worth more than a heavy CRM.
+
+You can try it at [lead-rescue-ai-two.vercel.app](https://lead-rescue-ai-two.vercel.app/).
+`
+  },
+  {
+    id: "17",
+    title: "Building LeadRescue AI: Design Decisions Behind a Follow-up SaaS",
+    slug: "building-leadrescue-ai",
+    excerpt: "Why LeadRescue AI is a focused tool instead of a full CRM, why AI only drafts, and how the product is structured around one daily question.",
+    date: "2026-10-11",
+    readTime: 5,
+    category: "Product",
+    projectName: "LeadRescue AI",
+    projectId: "leadrescue",
+    image: "/images/leadrescue-ai.png",
+    tags: ["SaaS", "Product Design", "AI", "Next.js"],
+    content: `# Building LeadRescue AI: Design Decisions Behind a Follow-up SaaS
+
+After shipping multi-tenant platforms like Clee, I wanted to build something much narrower: a tool with one job and almost no learning curve. These are the decisions that shaped LeadRescue AI.
+
+## Decision 1: Be Smaller Than a CRM
+
+Most CRMs ask a small business to learn contacts, companies, deals, custom fields and automations before they get any value. LeadRescue AI has six sections: **Dashboard, Leads, Pipeline, Follow-ups, AI Replies, Import Leads** (plus Settings). If a feature does not help someone reply to a lead sooner, it does not belong.
+
+## Decision 2: Organize Around One Question
+
+The whole app is built to answer: *who needs a follow-up today?* That is why the dashboard leads with "Need attention" and "due today", and why the Follow-ups view looks only 7 days ahead. Pretty charts support that question; they do not replace it.
+
+## Decision 3: AI Drafts, Humans Send
+
+It would be easy to let AI auto-reply to every enquiry. I chose not to. Replies are generated as **drafts**, in English and Hindi, and the owner reviews and sends them. Reasons:
+
+- A wrong or tone-deaf message to a real customer is expensive
+- Owners know context the AI does not (a regular client, a price already discussed)
+- Trust is easier to earn when the tool never surprises you
+
+The footer on the landing page says it plainly: *drafts and reminders only; you stay in control of every message.*
+
+## Decision 4: Bilingual From Day One
+
+Many small service businesses talk to customers in Hindi as much as English. Supporting both in the reply drafts was a core requirement, not a later translation task.
+
+## Decision 5: A Frontend Built to Be Scanned
+
+The app is built with a modern React stack and deployed on Vercel. The UI choices follow the same principle as the product: large readable numbers, a sidebar with few items, charts that load fast, and a global page search so nothing is more than one step away.
+
+## What's Next
+
+- More reply templates for common situations (quote follow-up, missed call, no-show)
+- Better import handling for messy spreadsheets
+- Team assignment, so each lead has a clear owner
+
+Try it live: [lead-rescue-ai-two.vercel.app](https://lead-rescue-ai-two.vercel.app/)
 `
   }
 ];

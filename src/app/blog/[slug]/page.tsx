@@ -19,6 +19,7 @@ const PROJECT_ID_TO_TITLE: Record<string, string> = {
   grocery: "Grocery Pickup Store",
   mylodge: "My Lodge",
   tobaline: "Tobaline — Sustainable Luxury Fashion E-Commerce",
+  leadrescue: "LeadRescue AI — Lead Follow-up SaaS for Service Businesses",
 };
 
 function projectSlugFor(projectId?: string) {

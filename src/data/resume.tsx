@@ -318,7 +318,7 @@ export const DATA = {
     {
       title: "Clee — Full-Stack SaaS Platform for Beauty & Wellness Businesses",
       href: "https://cleverclee-for-consumer.vercel.app/",
-      dates: "Jun 2025 - Present",
+      dates: "Apr 2026 - Present",
       active: true,
       shortDescription:
         "Multi-tenant SaaS platform for beauty/wellness businesses, shipped as 3 live surfaces — consumer website, customer booking app, and admin dashboard. Technical challenge: managing concurrent booking updates across 4+ role types with real-time state sync. Solution: Redis-backed slot locking + Redux optimistic updates. Processing 100+ monthly transactions with 99.8% reliability.",
@@ -356,8 +356,8 @@ export const DATA = {
     {
       title: "Tobaline — Sustainable Luxury Fashion E-Commerce",
       href: "https://www.tobaline.com/",
-      dates: "Jul 2025 - Present",
-      active: true,
+      dates: "Jun 2026 - Aug 2026",
+      active: false,
       shortDescription:
         "Multi-language (AR/EN) e-commerce platform for a sustainable silk & textile brand. Statically-exported Next.js storefront with collection browsing, cart, and order history, built for a Middle-East-facing audience with full RTL-ready localization.",
       description:
@@ -373,6 +373,30 @@ export const DATA = {
       ],
       links: [],
       image: "/images/tobaline.png",
+      video: "",
+    },
+    {
+      title: "LeadRescue AI — Lead Follow-up SaaS for Service Businesses",
+      href: "https://lead-rescue-ai-two.vercel.app/",
+      dates: "Oct 2026 - Present",
+      active: true,
+      shortDescription:
+        "SaaS that helps cleaning companies and small service teams track every lead, get AI-drafted replies in English and Hindi, and see exactly who needs a follow-up today. Includes a live dashboard with pipeline stages, follow-up reminders, and lead import. Drafts and reminders only — the user stays in control of every message.",
+      description:
+        "Built and launched LeadRescue AI, a SaaS product that stops small service businesses from losing enquiries to slow follow-ups. Features a marketing landing site and an authenticated app with a dashboard (open leads, needs-attention count, open pipeline value, win rate), new-leads trend chart, pipeline-by-stage and value-by-stage views, lead-source breakdown, and an upcoming follow-ups list. Dedicated modules for Leads, Pipeline, Follow-ups, AI Replies, Import Leads, and Settings. AI generates draft replies in English and Hindi for human review before sending, so nothing goes out automatically. Includes owner/team roles, global page search, in-app notifications, and a support flow. Deployed on Vercel.",
+      technologies: [
+        "Next.js",
+        "React.js",
+        "Tailwind CSS",
+        "Node.js",
+        "AI Reply Generation (LLM)",
+        "Data Visualization",
+        "Authentication",
+        "Vercel",
+      ],
+      links: [],
+      image: "/images/leadrescue-ai.png",
+      imageFit: "contain",
       video: "",
     },
 
