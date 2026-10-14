@@ -119,6 +119,7 @@ export default function ServiceDetailPage({
                   dates={project.dates}
                   tags={project.technologies}
                   image={project.image}
+                  imageFit={"imageFit" in project ? project.imageFit : undefined}
                   video={project.video}
                   links={project.links}
                 />

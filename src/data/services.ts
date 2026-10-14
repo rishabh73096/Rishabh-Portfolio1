@@ -56,6 +56,12 @@ const SERVICE_DEFS: readonly ServiceDef[] = [
     keywords: ["dashboard", "admin"],
   },
   {
+    title: "CRM Development",
+    description:
+      "Custom CRM systems — leads, pipelines, follow-ups, customers, orders and reporting dashboards for e-commerce, salon and service businesses.",
+    keywords: ["CRM"],
+  },
+  {
     title: "Payment Gateway Integration",
     description:
       "Stripe payment intents, webhook-based confirmation, and idempotent transaction handling.",
