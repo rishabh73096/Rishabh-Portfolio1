@@ -110,7 +110,7 @@ export const DATA = {
       start: "Sep 2024",
       end: "Present",
       description:
-        "Built and deployed 9 production-ready full-stack applications serving 300+ active users. Key achievement: Clee SaaS platform — architected 3-tier system (admin dashboard, customer marketplace, REST API) with JWT auth, multi-tenant RBAC, Stripe payments, Postmark email infrastructure, processing 100+ transactions reliably. Additional projects: Forma Construction (200+ users, 50+ projects), Grocery e-commerce (real-time inventory), My Lodge rental platform (real-time availability). Technical impact: Optimized page load times 40% through lazy loading, code splitting, MongoDB indexing. Implemented Redis caching strategies. Used Stripe for secure payment processing. Shipped features in 2-week sprints using Git + GitHub. Collaborated with cross-functional teams (designers, PMs, stakeholders) across full product lifecycle.",
+        "Built and deployed 9 production-ready full-stack applications serving 300+ active users. Key achievement: Beauty Salon SaaS platform — architected 3-tier system (admin dashboard, customer marketplace, REST API) with JWT auth, multi-tenant RBAC, Stripe payments, Postmark email infrastructure, processing 100+ transactions reliably. Additional projects: Forma Construction (200+ users, 50+ projects), Grocery e-commerce (real-time inventory), My Lodge rental platform (real-time availability). Technical impact: Optimized page load times 40% through lazy loading, code splitting, MongoDB indexing. Implemented Redis caching strategies. Used Stripe for secure payment processing. Shipped features in 2-week sprints using Git + GitHub. Collaborated with cross-functional teams (designers, PMs, stakeholders) across full product lifecycle.",
     },
   ],
 
@@ -316,7 +316,7 @@ export const DATA = {
       video: "",
     },
     {
-      title: "Clee — Full-Stack SaaS Platform for Beauty & Wellness Businesses",
+      title: "Beauty Salon — Full-Stack SaaS Platform for Beauty & Wellness Businesses",
       href: "https://cleverclee-for-consumer.vercel.app/",
       dates: "Apr 2026 - Present",
       active: true,
@@ -350,7 +350,7 @@ export const DATA = {
           href: "https://clee-web-5k71.vercel.app/",
         },
       ],
-      image: "/images/Clee.png",
+      image: "/images/beauty-salon.png",
       video: "",
     },
     {

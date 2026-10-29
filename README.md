@@ -13,7 +13,7 @@
 Full Stack Developer specializing in scalable SaaS platforms and real-time systems. I've shipped **9 production applications** serving 300+ users, processing 100+ transactions reliably with a focus on performance optimization and clean architecture.
 
 **Key Achievements:**
-- Built multi-tenant SaaS platform (Clee) with Redis distributed locks preventing overbooking
+- Built multi-tenant SaaS platform (Beauty Salon) with Redis distributed locks preventing overbooking
 - Optimized MongoDB queries from 2100ms → 280ms using aggregation pipelines
 - Achieved 99.2% transaction success rate in e-commerce platforms
 - Implemented hierarchical RBAC across 4 role levels with document-level permissions
@@ -40,8 +40,8 @@ Full Stack Developer specializing in scalable SaaS platforms and real-time syste
 
 ## 🎯 Featured Projects
 
-### 1. **Clee** — Full-Stack SaaS Platform for Beauty & Wellness
-**Live:** https://app.clee.co/ | **Duration:** Aug 2024 - Present (6 months)
+### 1. **Beauty Salon** — Full-Stack SaaS Platform for Beauty & Wellness
+**Live:** https://beauty-salon-for-consumer.vercel.app/ | **Duration:** Aug 2024 - Present (6 months)
 
 Multi-tenant SaaS platform serving beauty/wellness businesses with real-time booking management.
 

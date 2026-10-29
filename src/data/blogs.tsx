@@ -18,17 +18,17 @@ const RAW_BLOGS: Blog[] = [
     id: "1",
     title: "Multi-Tenant SaaS with MongoDB: Data Isolation & Performance",
     slug: "multi-tenant-mongodb-saas",
-    excerpt: "Building Clee SaaS platform with MongoDB - tenant isolation, indexing strategies, and real-world lessons learned.",
+    excerpt: "Building Beauty Salon SaaS platform with MongoDB - tenant isolation, indexing strategies, and real-world lessons learned.",
     date: "2026-06-10",
     readTime: 7,
     category: "Backend",
-    projectName: "Clee",
-    projectId: "clee",
-    image: "/images/Clee.png",
+    projectName: "Beauty Salon",
+    projectId: "beauty-salon",
+    image: "/images/beauty-salon.png",
     tags: ["MongoDB", "SaaS", "Node.js", "Architecture"],
     content: `# Multi-Tenant SaaS with MongoDB: Data Isolation & Performance
 
-Building Clee taught us how to architect MongoDB for multi-tenant systems where each customer's data must be completely isolated and fast.
+Building Beauty Salon taught us how to architect MongoDB for multi-tenant systems where each customer's data must be completely isolated and fast.
 
 ## MongoDB Tenant Isolation Strategy
 
@@ -72,13 +72,13 @@ app.get('/api/bookings', (req, res) => {
     id: "2",
     title: "Distributed Locks with Redis: Preventing Overbooking",
     slug: "redis-locks-booking",
-    excerpt: "Prevent concurrent booking conflicts using Redis locks in Node.js - Clee's battle-tested solution.",
+    excerpt: "Prevent concurrent booking conflicts using Redis locks in Node.js - Beauty Salon's battle-tested solution.",
     date: "2026-06-20",
     readTime: 6,
     category: "Backend",
-    projectName: "Clee",
-    projectId: "clee",
-    image: "/images/Clee.png",
+    projectName: "Beauty Salon",
+    projectId: "beauty-salon",
+    image: "/images/beauty-salon.png",
     tags: ["Redis", "Node.js", "Concurrency"],
     content: `# Distributed Locks with Redis: Preventing Overbooking
 
@@ -115,7 +115,7 @@ async function bookSlot(slotId) {
 }
 \`\`\`
 
-## Results from Clee
+## Results from Beauty Salon
 
 - Daily bookings: 100+
 - Double-bookings: 0
@@ -132,13 +132,13 @@ async function bookSlot(slotId) {
     id: "3",
     title: "Building a Loyalty Rewards Engine with React & Node.js",
     slug: "loyalty-rewards-engine",
-    excerpt: "Clee's flexible rewards system: React formula builder + Node.js calculations.",
+    excerpt: "Beauty Salon's flexible rewards system: React formula builder + Node.js calculations.",
     date: "2026-06-30",
     readTime: 6,
     category: "Frontend",
-    projectName: "Clee",
-    projectId: "clee",
-    image: "/images/Clee.png",
+    projectName: "Beauty Salon",
+    projectId: "beauty-salon",
+    image: "/images/beauty-salon.png",
     tags: ["React", "Node.js", "State Management"],
     content: `# Building a Loyalty Rewards Engine with React & Node.js
 
@@ -870,17 +870,17 @@ Frequent product/stock lookups went from a MongoDB round-trip to a sub-100ms Red
     id: "14",
     title: "Automating Transactional Emails with Postmark in Node.js",
     slug: "postmark-transactional-emails",
-    excerpt: "Templated transactional emails and marketing automation flows for Clee's booking platform, built on Postmark's Node.js SDK.",
+    excerpt: "Templated transactional emails and marketing automation flows for Beauty Salon's booking platform, built on Postmark's Node.js SDK.",
     date: "2026-07-25",
     readTime: 6,
     category: "Backend",
-    projectName: "Clee",
-    projectId: "clee",
-    image: "/images/Clee.png",
+    projectName: "Beauty Salon",
+    projectId: "beauty-salon",
+    image: "/images/beauty-salon.png",
     tags: ["Postmark", "Node.js", "Email"],
     content: `# Automating Transactional Emails with Postmark in Node.js
 
-Clee needed two very different kinds of email out of the same backend: transactional (booking confirmations, receipts) that must land instantly and reliably, and marketing automation (re-engagement, promos) that can tolerate delay. Postmark's message streams map directly onto that split.
+Beauty Salon needed two very different kinds of email out of the same backend: transactional (booking confirmations, receipts) that must land instantly and reliably, and marketing automation (re-engagement, promos) that can tolerate delay. Postmark's message streams map directly onto that split.
 
 ## Two Streams, One SDK
 
@@ -890,7 +890,7 @@ const client = new postmark.ServerClient(process.env.POSTMARK_TOKEN);
 
 // Transactional — outbound stream, sent immediately
 await client.sendEmailWithTemplate({
-  From: "bookings@clee.co",
+  From: "bookings@beautysalon.com",
   To: customer.email,
   TemplateAlias: "booking-confirmation",
   TemplateModel: { name: customer.name, date, time, service },
@@ -899,7 +899,7 @@ await client.sendEmailWithTemplate({
 
 // Marketing — broadcast stream, respects unsubscribe state
 await client.sendEmailWithTemplate({
-  From: "hello@clee.co",
+  From: "hello@beautysalon.com",
   To: customer.email,
   TemplateAlias: "promo-digest",
   TemplateModel: { name: customer.name, offers },
@@ -1078,7 +1078,7 @@ You can try it at [lead-rescue-ai-two.vercel.app](https://lead-rescue-ai-two.ver
     tags: ["SaaS", "Product Design", "AI", "Next.js"],
     content: `# Building LeadRescue AI: Design Decisions Behind a Follow-up SaaS
 
-After shipping multi-tenant platforms like Clee, I wanted to build something much narrower: a tool with one job and almost no learning curve. These are the decisions that shaped LeadRescue AI.
+After shipping multi-tenant platforms like Beauty Salon, I wanted to build something much narrower: a tool with one job and almost no learning curve. These are the decisions that shaped LeadRescue AI.
 
 ## Decision 1: Be Smaller Than a CRM
 

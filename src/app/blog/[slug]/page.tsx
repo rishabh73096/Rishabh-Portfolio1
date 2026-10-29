@@ -14,7 +14,7 @@ const BLUR_FADE_DELAY = 0.04;
 // matching project's real title so the slug always lines up with
 // /projects/[slug] instead of pointing at a stale, made-up path.
 const PROJECT_ID_TO_TITLE: Record<string, string> = {
-  clee: "Clee — Full-Stack SaaS Platform for Beauty & Wellness Businesses",
+  "beauty-salon": "Beauty Salon — Full-Stack SaaS Platform for Beauty & Wellness Businesses",
   forma: "Forma Construction",
   grocery: "Grocery Pickup Store",
   mylodge: "My Lodge",
